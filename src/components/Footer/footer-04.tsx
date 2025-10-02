@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Github, LinkedinIcon, XIcon } from "lucide-react";
 import Link from "next/link";
-import { Logo } from "../navbar-04/logo";
+import { Logo } from "../Navbar/logo";
 
 const footerLinks = [
   {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,8 @@ import {
   FormMessage,
 } from "./ui/form";
 import Password from "./password";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const logInFormSchema = z.object({
   email: z.email().min(2, {
@@ -29,6 +32,8 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter();
+
   // Define Login Form
   const form = useForm<z.infer<typeof logInFormSchema>>({
     resolver: zodResolver(logInFormSchema),
@@ -38,8 +43,29 @@ export function LoginForm({
     },
   });
 
-  function onSubmit(values: z.infer<typeof logInFormSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof logInFormSchema>) {
+    const toastId = toast.loading("logging ....");
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_LINK}/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+          credentials: "include",
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data?.message || "Something went wrong");
+      }
+      toast.success("Login Successfully.", { id: toastId });
+      router.push("/");
+    } catch (error: any) {
+      toast.error(error.message || "Login failed", { id: toastId });
+    }
   }
 
   return (
@@ -93,17 +119,8 @@ export function LoginForm({
                   <Button type="submit" className="w-full">
                     Login
                   </Button>
-                  {/* <Button variant="outline" className="w-full">
-                  Login with Google
-                </Button> */}
                 </div>
               </div>
-              {/* <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <a href="#" className="underline underline-offset-4">
-                Sign up
-              </a>
-            </div> */}
             </form>
           </Form>
         </CardContent>

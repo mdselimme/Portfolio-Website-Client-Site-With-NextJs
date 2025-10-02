@@ -19,6 +19,7 @@ export default function Password({ ...field }) {
           className="pe-9"
           placeholder="write your password"
           type={isVisible ? "text" : "password"}
+          autoComplete="current-password"
           {...field}
         />
         <button
