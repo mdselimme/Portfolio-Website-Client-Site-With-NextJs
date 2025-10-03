@@ -1,0 +1,28 @@
+import React from "react";
+import { IBlog } from "@/types/blog";
+import BlogCard from "../Blog/BlogCard";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
+const HomeBlog = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/blog`);
+  const { data: blogsData } = await res.json();
+
+  return (
+    <div className="container mx-auto py-20">
+      <h1 className="text-center font-bold text-3xl my-10">Our Latest Blogs</h1>
+      <div className="grid grid-cols-3 gap-20">
+        {blogsData.slice(0, 3)?.map((data: IBlog) => (
+          <BlogCard key={data?._id} data={data} />
+        ))}
+      </div>
+      <div className="text-center my-8">
+        <Link href={"/blogs"}>
+          <Button>See All Blogs</Button>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default HomeBlog;
