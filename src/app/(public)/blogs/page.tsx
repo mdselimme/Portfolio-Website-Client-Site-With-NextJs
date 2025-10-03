@@ -9,6 +9,8 @@ import {
 import { IBlog } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { dateConvert } from "@/utils/convertDate";
 
 const BlogsPage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/blog`);
@@ -36,7 +38,24 @@ const BlogsPage = async () => {
               </CardHeader>
 
               <CardFooter>
-                <p>Card Footer</p>
+                <div className="flex gap-4 mb-3 items-center">
+                  <Avatar className="size-10">
+                    <AvatarImage
+                      src={data?.author.photo}
+                      alt={`${data?.author?.name} img`}
+                    />
+                    <AvatarFallback>PF</AvatarFallback>
+                  </Avatar>
+
+                  <div>
+                    <p className="font-normal text-muted-foreground">
+                      {data?.author?.name}
+                    </p>
+                    <p className="font-normal text-muted-foreground">
+                      {dateConvert(data?.createdAt)}
+                    </p>
+                  </div>
+                </div>
               </CardFooter>
             </Card>
           </Link>
