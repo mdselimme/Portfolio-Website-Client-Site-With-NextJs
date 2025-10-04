@@ -48,10 +48,10 @@ export const authOptions: NextAuthOptions = {
                     if (user) {
                         // Any object returned will be saved in `user` property of the JWT
                         return {
-                            id: user?._id,
-                            email: user?.email,
-                            name: user?.name,
-                            image: user?.picture,
+                            id: user?.data?.user?._id,
+                            email: user?.data?.user?.email,
+                            name: user?.data?.user?.name,
+                            image: user?.data?.user?.photo,
                         }
                     } else {
                         return null
