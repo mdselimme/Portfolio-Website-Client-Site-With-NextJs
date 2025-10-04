@@ -10,14 +10,16 @@ import { dateConvert } from "@/utils/convertDate";
 import Image from "next/image";
 import React from "react";
 
-const BlogDetailsPage = async ({
+const ProjectDetailsPage = async ({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) => {
   const { id } = await params;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/blog/${id}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_LINK}/project/${id}`
+  );
   const { data } = await res.json();
 
   return (
@@ -28,21 +30,18 @@ const BlogDetailsPage = async ({
             <div className="flex gap-4 mb-3 items-center">
               <Avatar className="size-16">
                 <AvatarImage
-                  src={data?.author.photo}
-                  alt={`${data?.author?.name} img`}
+                  src={data?.user?.photo}
+                  alt={`${data?.user?.name} img`}
                 />
                 <AvatarFallback>PF</AvatarFallback>
               </Avatar>
               <div>
                 <p className="font-semibold text-muted-foreground">
-                  {data?.author?.name} - {dateConvert(data?.createdAt)}
-                </p>
-                <p className="font-semibold text-muted-foreground flex gap-2 mt-2">
-                  Views: {data?.views}
+                  {data?.user?.name} - {dateConvert(data?.createdAt)}
                 </p>
               </div>
             </div>
-            <div className="mb-8 w-full h-[350px] rounded-3xl border relative">
+            <div className="mb-8 w-full h-[350px] rounded-3xl border relative overflow-hidden">
               <Image
                 src={data?.thumbnail || "/placeholder.png"}
                 fill={true}
@@ -60,9 +59,9 @@ const BlogDetailsPage = async ({
 
           <CardFooter>
             <div className="flex gap-2 mb-3 items-center">
-              <p className="text-lg font-semibold">Tags: </p>
+              <p className="text-lg font-semibold">Used Technology: </p>
               <ul className="flex gap-3">
-                {data?.tags?.map((tag: string) => (
+                {data?.technologyUsed?.map((tag: string) => (
                   <li
                     className="capitalize text-sm bg-accent-foreground text-white py-2 px-4 rounded-full"
                     key={tag}
@@ -79,4 +78,4 @@ const BlogDetailsPage = async ({
   );
 };
 
-export default BlogDetailsPage;
+export default ProjectDetailsPage;
