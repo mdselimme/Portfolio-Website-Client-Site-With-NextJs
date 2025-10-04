@@ -16,9 +16,7 @@ import {
   FormMessage,
 } from "./ui/form";
 import Password from "./password";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { axiosBaseUrl } from "@/lib/axios";
 import { signIn } from "next-auth/react";
 
 const logInFormSchema = z.object({
@@ -34,8 +32,6 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const router = useRouter();
-
   // Define Login Form
   const form = useForm<z.infer<typeof logInFormSchema>>({
     resolver: zodResolver(logInFormSchema),
@@ -45,28 +41,7 @@ export function LoginForm({
     },
   });
 
-  // Login Function
-  // async function onSubmit(values: z.infer<typeof logInFormSchema>) {
-  //   const toastId = toast.loading("logging ....");
-  //   try {
-  //     const res = await axiosBaseUrl.post("/auth/login", values);
-  //     const data = await res.data;
-
-  //     if (data?.success) {
-  //       toast.success("Login Successfully.", { id: toastId });
-  //       router.push("/");
-  //     }
-  //   } catch (error: any) {
-  //     console.log(error);
-  //     toast.error(error?.response?.data?.message || "Login failed", {
-  //       id: toastId,
-  //     });
-  //   }
-  // }
-
   async function onSubmit(values: z.infer<typeof logInFormSchema>) {
-    const toastId = toast.loading("logging ....");
-    console.log({ ...values });
     try {
       signIn("credentials", {
         ...values,
@@ -74,9 +49,7 @@ export function LoginForm({
       });
     } catch (error: any) {
       console.log(error);
-      toast.error(error?.response?.data?.message || "Login failed", {
-        id: toastId,
-      });
+      toast.error(error?.response?.data?.message || "Login failed");
     }
   }
 
