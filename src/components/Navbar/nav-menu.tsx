@@ -30,11 +30,6 @@ export const NavMenu = (props: ComponentProps<typeof NavigationMenu>) => (
           <Link href="/projects">Projects</Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
-      <NavigationMenuItem>
-        <NavigationMenuLink asChild>
-          <Link href="/contact">Contact</Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
     </NavigationMenuList>
   </NavigationMenu>
 );

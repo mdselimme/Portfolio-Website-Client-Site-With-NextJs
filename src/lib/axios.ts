@@ -2,10 +2,12 @@
 import config from "@/config/baseUrl";
 import axios, { AxiosRequestConfig } from "axios";
 
+
 export const axiosBaseUrl = axios.create({
     baseURL: config.baseUrl,
     withCredentials: true,
 });
+
 
 // Add a request interceptor
 axiosBaseUrl.interceptors.request.use(
