@@ -16,15 +16,13 @@ const BlogCard = ({ data }: { data: IBlog }) => {
   return (
     <Link key={data?._id} href={`/blogs/${data?._id}`}>
       <Card>
-        <div className="p-5">
+        <div className="relative w-full h-[350px] ">
           <Image
             src={data?.thumbnail || "/placeholder.png"}
-            width={"100"}
-            height={"350"}
+            fill={true}
             alt={`${data?.title} image`}
-            className="w-fit h-[350px] rounded-3xl"
             loading="lazy"
-            quality={100}
+            quality={10}
           />
         </div>
         <CardHeader>
