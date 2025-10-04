@@ -8,7 +8,6 @@ import { getUserSession } from "@/utils/getUserSession";
 
 const Navbar = async () => {
   const session = await getUserSession();
-  console.log(session);
   return (
     <div className="bg-muted">
       <nav className="fixed top-6 inset-x-4 h-16 bg-background border dark:border-slate-700/70 max-w-(--breakpoint-xl) mx-auto rounded-full">
@@ -19,12 +18,21 @@ const Navbar = async () => {
           <NavMenu className="hidden md:block" />
 
           <div className="flex items-center gap-3">
-            <Link href={"/login"}>
-              {" "}
-              <Button className="hidden sm:inline-flex rounded-full">
-                Log In
-              </Button>
-            </Link>
+            {session?.user?.email ? (
+              <Link href={"/dashboard"}>
+                {" "}
+                <Button className="hidden sm:inline-flex rounded-full">
+                  Dashboard
+                </Button>
+              </Link>
+            ) : (
+              <Link href={"/login"}>
+                {" "}
+                <Button className="hidden sm:inline-flex rounded-full">
+                  Log In
+                </Button>
+              </Link>
+            )}
 
             {/* Mobile Menu */}
             <div className="md:hidden">
