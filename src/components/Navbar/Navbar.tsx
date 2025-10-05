@@ -3,7 +3,6 @@ import { Logo } from "./logo";
 import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
 import Link from "next/link";
-
 import { getUserSession } from "@/utils/getUserSession";
 
 const Navbar = async () => {

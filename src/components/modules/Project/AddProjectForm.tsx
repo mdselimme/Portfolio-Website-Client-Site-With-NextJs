@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
+import { axiosBaseUrl } from "@/lib/axios";
 
 const addProjectSchema = z.object({
   title: z.string({ error: "Title is required" }).min(10, {
@@ -53,10 +54,14 @@ const AddProjectForm = () => {
           .split(",")
           .map((tag) => tag.trim()),
       };
-      console.log(addProjectData);
+      const res = await axiosBaseUrl.post("/project", addProjectData);
+      const data = await res.data;
+      if (data?.success) {
+        toast.success("Add Project Successfully.");
+      }
     } catch (error: any) {
       console.log(error);
-      toast.error(error?.response?.data?.message || "Login failed");
+      toast.error(error?.response?.data?.message || "Add Project Failed.");
     }
   }
   return (
