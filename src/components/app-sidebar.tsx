@@ -1,9 +1,15 @@
 import * as React from "react";
-import { Sidebar, SidebarHeader, SidebarRail } from "@/components/ui/sidebar";
+import {
+  Sidebar,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarRail,
+} from "@/components/ui/sidebar";
 import { Logo } from "./Navbar/logo";
 import Link from "next/link";
 
 import SidebarContentSection from "./modules/Dashboard/SidebarContentSection";
+import LogOutButton from "./modules/Auth/LogOutButton";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -16,6 +22,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </Link>
       </SidebarHeader>
       <SidebarContentSection />
+      <SidebarFooter>
+        {/* Log Out Button  */}
+        <LogOutButton />
+      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );
