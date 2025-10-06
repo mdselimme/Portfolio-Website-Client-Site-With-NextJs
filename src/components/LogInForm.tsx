@@ -18,7 +18,7 @@ import {
 import Password from "./password";
 import { toast } from "sonner";
 import { axiosBaseUrl } from "@/lib/axios";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const logInFormSchema = z.object({
   email: z.email().min(2, {
@@ -34,6 +34,8 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectPath = searchParams.get("redirect") || "/dashboard";
   // Define Login Form
   const form = useForm<z.infer<typeof logInFormSchema>>({
     resolver: zodResolver(logInFormSchema),
@@ -47,9 +49,8 @@ export function LoginForm({
     try {
       const res = await axiosBaseUrl.post("/auth/login", values);
       const data = await res.data;
-      console.log(data);
       if (data?.success) {
-        router.push("/dashboard");
+        router.push(redirectPath);
         toast.success("Login Successful.");
       }
     } catch (error: any) {
@@ -79,6 +80,7 @@ export function LoginForm({
                         <FormLabel>Username</FormLabel>
                         <FormControl>
                           <Input
+                            autoComplete="email"
                             placeholder="write your email here"
                             {...field}
                           />

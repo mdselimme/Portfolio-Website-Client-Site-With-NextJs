@@ -18,6 +18,7 @@ import {
 import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 import { axiosBaseUrl } from "@/lib/axios";
+import { useRouter } from "next/navigation";
 
 const addProjectSchema = z.object({
   title: z.string({ error: "Title is required" }).min(10, {
@@ -33,6 +34,8 @@ const addProjectSchema = z.object({
 });
 
 const AddProjectForm = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof addProjectSchema>>({
     resolver: zodResolver(addProjectSchema),
     defaultValues: {
@@ -57,6 +60,7 @@ const AddProjectForm = () => {
       const res = await axiosBaseUrl.post("/project", addProjectData);
       const data = await res.data;
       if (data?.success) {
+        router.push("/projects");
         toast.success("Add Project Successfully.");
       }
     } catch (error: any) {
