@@ -23,16 +23,14 @@ const Navbar = async () => {
             {user?.email ? (
               <Link href={"/dashboard"}>
                 {" "}
-                <Button className="hidden sm:inline-flex rounded-full">
+                <Button className="sm:inline-flex rounded-full">
                   Dashboard
                 </Button>
               </Link>
             ) : (
               <Link href={"/login"}>
                 {" "}
-                <Button className="hidden sm:inline-flex rounded-full">
-                  Log In
-                </Button>
+                <Button className="sm:inline-flex rounded-full">Log In</Button>
               </Link>
             )}
 

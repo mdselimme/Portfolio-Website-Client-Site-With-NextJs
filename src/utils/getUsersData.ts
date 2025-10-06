@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import { getAccessToken } from "./getAccessToken";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 
@@ -6,8 +6,8 @@ import { cookies } from "next/headers";
 
 export const getUserData = async () => {
     try {
-        const cookieStore = cookies();
-        const accessToken = (await cookieStore).get("accessToken")?.value;
+
+        const accessToken = await getAccessToken();
 
         let user = null;
         if (accessToken) {
