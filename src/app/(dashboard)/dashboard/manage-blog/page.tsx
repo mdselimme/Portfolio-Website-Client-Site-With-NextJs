@@ -30,9 +30,9 @@ const ManageBlog = async () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {blogsData === null ? (
+          {blogsData === undefined ? (
             <TableRow>
-              <TableCell className="font-medium">
+              <TableCell className="font-medium text-center" colSpan={4}>
                 No blog published yet
               </TableCell>
             </TableRow>
