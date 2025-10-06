@@ -17,7 +17,8 @@ import {
 } from "./ui/form";
 import Password from "./password";
 import { toast } from "sonner";
-import { signIn } from "next-auth/react";
+import { axiosBaseUrl } from "@/lib/axios";
+import { useRouter } from "next/navigation";
 
 const logInFormSchema = z.object({
   email: z.email().min(2, {
@@ -32,6 +33,7 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter();
   // Define Login Form
   const form = useForm<z.infer<typeof logInFormSchema>>({
     resolver: zodResolver(logInFormSchema),
@@ -43,10 +45,13 @@ export function LoginForm({
 
   async function onSubmit(values: z.infer<typeof logInFormSchema>) {
     try {
-      signIn("credentials", {
-        ...values,
-        callbackUrl: "/dashboard",
-      });
+      const res = await axiosBaseUrl.post("/auth/login", values);
+      const data = await res.data;
+      console.log(data);
+      if (data?.success) {
+        router.push("/dashboard");
+        toast.success("Login Successful.");
+      }
     } catch (error: any) {
       console.log(error);
       toast.error(error?.response?.data?.message || "Login failed");

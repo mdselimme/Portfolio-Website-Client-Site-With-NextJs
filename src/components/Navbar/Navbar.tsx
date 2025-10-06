@@ -3,21 +3,24 @@ import { Logo } from "./logo";
 import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
 import Link from "next/link";
-import { getUserSession } from "@/utils/getUserSession";
+import { getUserData } from "@/utils/getUsersData";
 
 const Navbar = async () => {
-  const session = await getUserSession();
+  const user = await getUserData();
+
   return (
     <div className="bg-muted">
-      <nav className="fixed top-6 inset-x-4 h-16 bg-background border dark:border-slate-700/70 max-w-(--breakpoint-xl) mx-auto rounded-full">
+      <nav className="fixed top-6 inset-x-4 h-16 bg-background border dark:border-slate-700/70 container mx-auto rounded-full">
         <div className="h-full flex items-center justify-between mx-auto px-6 py-6">
-          <Logo />
+          <Link href={"/"}>
+            <Logo />
+          </Link>
 
           {/* Desktop Menu */}
           <NavMenu className="hidden md:block" />
 
           <div className="flex items-center gap-3">
-            {session?.user?.email ? (
+            {user?.email ? (
               <Link href={"/dashboard"}>
                 {" "}
                 <Button className="hidden sm:inline-flex rounded-full">

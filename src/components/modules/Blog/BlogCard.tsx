@@ -16,7 +16,7 @@ const BlogCard = ({ data }: { data: IBlog }) => {
   return (
     <Link key={data?._id} href={`/blogs/${data?._id}`}>
       <Card>
-        <div className="relative w-full h-[350px] ">
+        <div className="relative w-full h-[350px] overflow-hidden">
           <Image
             src={data?.thumbnail || "/placeholder.png"}
             fill={true}

@@ -5,7 +5,6 @@ import React from "react";
 const ProjectsPage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/project`);
   const { data: projectsData } = await res.json();
-  console.log(projectsData);
 
   return (
     <div className="container mx-auto py-20">

@@ -42,7 +42,7 @@ const BlogDetailsPage = async ({
                 </p>
               </div>
             </div>
-            <div className="mb-8 w-full h-[350px] rounded-3xl border relative">
+            <div className="mb-8 w-full h-[350px] rounded-3xl border relative overflow-hidden">
               <Image
                 src={data?.thumbnail || "/placeholder.png"}
                 fill={true}
