@@ -39,6 +39,10 @@ const data = {
           title: "Add Project",
           url: "/dashboard/add-project",
         },
+        {
+          title: "Edit Profile",
+          url: "/dashboard/edit-profile",
+        },
       ],
     },
   ],

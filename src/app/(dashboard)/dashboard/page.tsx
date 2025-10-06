@@ -19,7 +19,7 @@ const DashboardHome = async () => {
     cache: "no-store",
   });
   const { data: totalStats } = await res.json();
-  console.log(totalStats);
+
   return (
     <div className="container mx-auto">
       <h1 className="text-center font-extrabold text-2xl my-4">
@@ -60,6 +60,7 @@ const DashboardHome = async () => {
             </Link>
           </CardFooter>
         </Card>
+        {/* Profile Data Show Components */}
         <Profile />
       </div>
     </div>

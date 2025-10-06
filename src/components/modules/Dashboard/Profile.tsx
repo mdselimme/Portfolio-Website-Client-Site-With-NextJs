@@ -1,3 +1,4 @@
+"use server";
 import React from "react";
 import {
   Card,
@@ -8,9 +9,9 @@ import {
 } from "@/components/ui/card";
 import { getUserData } from "@/utils/getUsersData";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { AvatarImage } from "@radix-ui/react-avatar";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 const Profile = async () => {
   const user = await getUserData();
 
@@ -24,7 +25,13 @@ const Profile = async () => {
       <CardContent className="flex flex-col items-center">
         <div>
           <Avatar className="size-22">
-            <AvatarImage src={user?.photo} />
+            <Image
+              src={user?.photo || "/placeholder.png"}
+              fill={true}
+              alt={`${user?.name} image`}
+              loading="lazy"
+              quality={10}
+            />
             <AvatarFallback>Profile Image</AvatarFallback>
           </Avatar>
         </div>
@@ -50,7 +57,7 @@ const Profile = async () => {
         </div>
       </CardContent>
       <CardFooter className="justify-center">
-        <Link href={"/update-profile"}>
+        <Link href={"/dashboard/edit-profile"}>
           {" "}
           <Button className="sm:inline-flex rounded-full">Edit Profile</Button>
         </Link>
