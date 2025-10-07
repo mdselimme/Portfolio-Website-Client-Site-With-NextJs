@@ -1,3 +1,4 @@
+import ProjectDeleteButton from "@/components/modules/Project/ProjectDeleteButton";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -47,9 +48,7 @@ const ManageProject = async () => {
                       Edit
                     </Button>
                   </Link>
-                  <Button className="sm:inline-flex rounded-full">
-                    Delete
-                  </Button>
+                  <ProjectDeleteButton projectId={project?._id} />
                 </TableCell>
               </TableRow>
             ))

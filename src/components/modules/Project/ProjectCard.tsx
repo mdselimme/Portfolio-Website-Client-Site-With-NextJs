@@ -7,7 +7,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { IProject } from "@/types/project";
-
 import { dateConvert } from "@/utils/convertDate";
 import Image from "next/image";
 import Link from "next/link";
@@ -28,7 +27,7 @@ const ProjectCard = ({ data }: { data: IProject }) => {
         </div>
         <CardHeader>
           <CardTitle>{data?.title}</CardTitle>
-          <CardDescription>{data?.description}</CardDescription>
+          <CardDescription>{data?.description.slice(0, 60)}</CardDescription>
         </CardHeader>
 
         <CardFooter>

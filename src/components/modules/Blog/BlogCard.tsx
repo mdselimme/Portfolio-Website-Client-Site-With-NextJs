@@ -27,7 +27,7 @@ const BlogCard = ({ data }: { data: IBlog }) => {
         </div>
         <CardHeader>
           <CardTitle>{data?.title}</CardTitle>
-          <CardDescription>{data?.description}</CardDescription>
+          <CardDescription>{data?.description.slice(0, 50)}</CardDescription>
         </CardHeader>
 
         <CardFooter>

@@ -1,3 +1,4 @@
+import DeleteBlogButton from "@/components/modules/Blog/DeleteBlogButton";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -49,9 +50,7 @@ const ManageBlog = async () => {
                       Edit
                     </Button>
                   </Link>
-                  <Button className="sm:inline-flex rounded-full">
-                    Delete
-                  </Button>
+                  <DeleteBlogButton blogId={blog?._id} />
                 </TableCell>
               </TableRow>
             ))

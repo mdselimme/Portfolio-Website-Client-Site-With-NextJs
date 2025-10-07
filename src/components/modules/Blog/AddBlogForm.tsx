@@ -59,6 +59,7 @@ const AddBlogForm = () => {
           .map((tag) => tag.trim()),
         isFeatured: values.isFeatured.toLowerCase() === "yes" ? true : false,
       };
+      console.log(addBlogData);
       const res = await axiosBaseUrl.post("/blog", addBlogData);
       const data = await res.data;
       if (data?.success) {
