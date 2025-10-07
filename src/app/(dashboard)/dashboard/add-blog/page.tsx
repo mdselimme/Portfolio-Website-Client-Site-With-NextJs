@@ -1,6 +1,12 @@
 import { cn } from "@/lib/utils";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import AddBlogForm from "@/components/modules/Blog/AddBlogForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: `Dashboard - Add Blog`,
+  description: "Dashboard Add Blog Page",
+};
 
 const AddBlog = () => {
   return (

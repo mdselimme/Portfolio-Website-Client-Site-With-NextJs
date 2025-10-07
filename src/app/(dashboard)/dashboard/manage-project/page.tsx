@@ -9,7 +9,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { IProject } from "@/types/project";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: `Dashboard - Manage Project`,
+  description: "Selim Portfolio Dashboard Page",
+};
 
 const ManageProject = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/project`, {

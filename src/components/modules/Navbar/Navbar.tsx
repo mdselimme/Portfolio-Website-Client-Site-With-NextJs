@@ -10,7 +10,7 @@ const Navbar = async () => {
 
   return (
     <div className="bg-muted z-20">
-      <nav className="fixed top-6 inset-x-4 h-16 bg-background border dark:border-slate-700/70 container mx-auto rounded-full">
+      <nav className="fixed top-6 left-1/2 -translate-x-1/2 h-16 container bg-background border dark:border-slate-700/70 rounded-full">
         <div className="h-full flex items-center justify-between mx-auto px-6 py-6">
           <Link href={"/"}>
             <Logo />

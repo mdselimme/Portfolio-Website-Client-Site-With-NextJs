@@ -9,6 +9,12 @@ import {
 import Link from "next/link";
 import { getAccessToken } from "@/utils/getAccessToken";
 import Profile from "@/components/modules/Dashboard/Profile";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: `Selim Portfolio - Dashboard`,
+  description: "Selim Portfolio Dashboard Page",
+};
 
 const DashboardHome = async () => {
   const accessToken = await getAccessToken();

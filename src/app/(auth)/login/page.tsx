@@ -1,5 +1,10 @@
 import { LoginForm } from "@/components/modules/Auth/LogInForm";
+import { Metadata } from "next";
 import React from "react";
+export const metadata: Metadata = {
+  title: `Selim Portfolio - Log In`,
+  description: "Selim Portfolio Login Page",
+};
 
 const LogInPage = () => {
   return (

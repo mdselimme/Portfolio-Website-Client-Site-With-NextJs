@@ -9,9 +9,9 @@ const HomeBlog = async () => {
   const { data: blogsData } = await res.json();
 
   return (
-    <div className="container mx-auto py-20">
+    <div className="container mx-auto pb-10 pt-20">
       <h1 className="text-center font-bold text-3xl my-10">Our Latest Blogs</h1>
-      <div className="grid grid-cols-3 gap-20">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-20 p-5">
         {blogsData.slice(0, 3)?.map((data: IBlog) => (
           <BlogCard key={data?._id} data={data} />
         ))}

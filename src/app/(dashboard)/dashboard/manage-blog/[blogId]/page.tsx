@@ -1,7 +1,13 @@
 import EditBlogForm from "@/components/modules/Blog/EditBlog";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: `Dashboard - Edit Blog`,
+  description: "Dashboard Edit Blog Page",
+};
 
 const EditBlogPage = async ({
   params,

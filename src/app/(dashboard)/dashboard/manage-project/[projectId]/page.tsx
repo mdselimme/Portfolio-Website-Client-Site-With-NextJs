@@ -1,7 +1,13 @@
 import EditProjectFrom from "@/components/modules/Project/EditProjectForm";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: `Dashboard - Edit Project`,
+  description: "Dashboard Edit Project Page",
+};
 
 const EditProjectPage = async ({
   params,

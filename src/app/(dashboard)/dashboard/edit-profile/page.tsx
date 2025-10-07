@@ -2,7 +2,13 @@ import EditProfileForm from "@/components/modules/Dashboard/EdifProfileForm";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { getUserData } from "@/utils/getUsersData";
+import { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: `Dashboard - Edit Profile`,
+  description: "Dashboard Edit Profile Page",
+};
 
 const EditProfile = async () => {
   const user = await getUserData();

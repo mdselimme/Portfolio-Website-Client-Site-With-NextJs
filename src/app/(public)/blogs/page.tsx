@@ -1,6 +1,12 @@
 import React from "react";
 import { IBlog } from "@/types/blog";
 import BlogCard from "@/components/modules/Blog/BlogCard";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: `Selim Portfolio - Blogs`,
+  description: "Selim Portfolio Blogs Page",
+};
 
 const BlogsPage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/blog`);

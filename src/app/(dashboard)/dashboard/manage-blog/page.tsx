@@ -9,7 +9,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { IBlog } from "@/types/blog";
+import { Metadata } from "next";
 import Link from "next/link";
+export const metadata: Metadata = {
+  title: `Dashboard - Manage Blog`,
+  description: "Dashboard Manage Blog Page",
+};
 
 const ManageBlog = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/blog`, {
