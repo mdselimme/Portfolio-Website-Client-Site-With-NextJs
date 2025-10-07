@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { IProject } from "@/types/project";
+import Link from "next/link";
 
 const ManageProject = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/project`, {
@@ -41,9 +42,11 @@ const ManageProject = async () => {
                 <TableCell>{project?._id}</TableCell>
                 <TableCell>{project?.title}</TableCell>
                 <TableCell>
-                  <Button className="sm:inline-flex rounded-full mr-4">
-                    Edit Project
-                  </Button>
+                  <Link href={`/dashboard/manage-project/${project?._id}`}>
+                    <Button className="sm:inline-flex rounded-full mr-2">
+                      Edit
+                    </Button>
+                  </Link>
                   <Button className="sm:inline-flex rounded-full">
                     Delete
                   </Button>

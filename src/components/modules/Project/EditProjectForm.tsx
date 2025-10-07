@@ -19,18 +19,20 @@ import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 import { axiosBaseUrl } from "@/lib/axios";
 import { useRouter } from "next/navigation";
+import { IProject } from "@/types/project";
 
-const addProjectSchema = z.object({
-  title: z.string({ error: "Title is required" }).min(10, {
-    message: "minimum 10 character long.",
-  }),
-  description: z.string({ error: "Description is required" }).min(50, {
-    message: "minimum 50 character long.",
-  }),
-  thumbnail: z.url({ error: "Must be valid url." }),
-  technologyUsed: z.string({ error: "technologyUsed is required" }).min(1, {
-    message: "minimum 1 technology required.",
-  }),
+const editProjectSchema = z.object({
+  title: z.string({ error: "project title required." }).optional(),
+  thumbnail: z
+    .url({ error: "thumbnail link is required and give a valid link." })
+    .optional(),
+  description: z.string({ error: "description required." }).optional(),
+  technologyUsed: z
+    .string({ error: "technologyUsed is required" })
+    .min(1, {
+      message: "minimum 1 technology required.",
+    })
+    .optional(),
   clientLiveLink: z
     .url({ error: "client live link is not valid link." })
     .optional(),
@@ -45,30 +47,30 @@ const addProjectSchema = z.object({
     .optional(),
 });
 
-const AddProjectForm = () => {
+const EditProjectFrom = ({ project }: { project: IProject }) => {
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof addProjectSchema>>({
-    resolver: zodResolver(addProjectSchema),
+  const form = useForm<z.infer<typeof editProjectSchema>>({
+    resolver: zodResolver(editProjectSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      thumbnail: "",
-      technologyUsed: "",
-      clientLiveLink: "",
-      serverLiveLink: "",
-      clientCodeLink: "",
-      serverCodeLink: "",
+      title: project?.title,
+      description: project?.description,
+      thumbnail: project?.thumbnail,
+      technologyUsed: project?.technologyUsed.join(", "),
+      clientLiveLink: project?.clientLiveLink,
+      serverLiveLink: project?.serverLiveLink,
+      clientCodeLink: project?.clientCodeLink,
+      serverCodeLink: project?.serverCodeLink,
     },
   });
 
-  async function onSubmit(values: z.infer<typeof addProjectSchema>) {
+  async function onSubmit(values: z.infer<typeof editProjectSchema>) {
     try {
-      const addProjectData = {
+      const editProjectData = {
         title: values.title,
         description: values.description,
         thumbnail: values.thumbnail,
-        technologyUsed: values.technologyUsed
+        technologyUsed: (values?.technologyUsed ?? "")
           .toString()
           .split(",")
           .map((tag) => tag.trim()),
@@ -77,15 +79,18 @@ const AddProjectForm = () => {
         clientCodeLink: values?.clientCodeLink,
         serverCodeLink: values?.serverCodeLink,
       };
-      const res = await axiosBaseUrl.post("/project", addProjectData);
+      const res = await axiosBaseUrl.patch(
+        `/project/${project?._id}`,
+        editProjectData
+      );
       const data = await res.data;
       if (data?.success) {
-        router.push("/projects");
-        toast.success("Add Project Successfully.");
+        router.push("/dashboard/manage-project");
+        toast.success("Update Project Successfully.");
       }
     } catch (error: any) {
       console.log(error);
-      toast.error(error?.response?.data?.message || "Add Project Failed.");
+      toast.error(error?.response?.data?.message || "Update Project Failed.");
     }
   }
   return (
@@ -99,7 +104,7 @@ const AddProjectForm = () => {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Project Title *</FormLabel>
+                    <FormLabel>Project Title</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="write your project title here"
@@ -118,7 +123,7 @@ const AddProjectForm = () => {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Project Description *</FormLabel>
+                    <FormLabel>Project Description</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="write your project description here"
@@ -137,7 +142,7 @@ const AddProjectForm = () => {
                 name="technologyUsed"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Project Technology *</FormLabel>
+                    <FormLabel>Project Technology</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="write project technology used separated by comma"
@@ -149,13 +154,14 @@ const AddProjectForm = () => {
                 )}
               />
             </div>
+
             <div className="grid gap-3">
               <FormField
                 control={form.control}
                 name="thumbnail"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Project Image *</FormLabel>
+                    <FormLabel>Project Image</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="give a project related image url link"
@@ -167,13 +173,14 @@ const AddProjectForm = () => {
                 )}
               />
             </div>
+
             <div className="grid gap-3">
               <FormField
                 control={form.control}
                 name="clientLiveLink"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Project Client Live Link (Optional)</FormLabel>
+                    <FormLabel>Project Client Live Link</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="give project client live url link"
@@ -191,7 +198,7 @@ const AddProjectForm = () => {
                 name="serverLiveLink"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Project Server Live Link (Optional)</FormLabel>
+                    <FormLabel>Project Server Live Link</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="give project server live url link"
@@ -209,7 +216,7 @@ const AddProjectForm = () => {
                 name="clientCodeLink"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Project Client Code Link (Optional)</FormLabel>
+                    <FormLabel>Project Client Code Link</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="give project client code url link"
@@ -227,7 +234,7 @@ const AddProjectForm = () => {
                 name="serverCodeLink"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Project Server Code Link (Optional)</FormLabel>
+                    <FormLabel>Project Server Code Link</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="give project server code url link"
@@ -242,7 +249,7 @@ const AddProjectForm = () => {
 
             <div className="flex flex-col gap-3">
               <Button type="submit" className="w-full">
-                Add Project
+                Edit Submit
               </Button>
             </div>
           </div>
@@ -252,4 +259,4 @@ const AddProjectForm = () => {
   );
 };
 
-export default AddProjectForm;
+export default EditProjectFrom;
