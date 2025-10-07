@@ -7,6 +7,9 @@ import { Input } from "@/components/ui/input";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import { axiosBaseUrl } from "@/lib/axios";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -14,11 +17,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import Password from "./password";
-import { toast } from "sonner";
-import { axiosBaseUrl } from "@/lib/axios";
-import { useRouter, useSearchParams } from "next/navigation";
+} from "@/components/ui/form";
+import Password from "@/components/password";
 
 const logInFormSchema = z.object({
   email: z.email().min(2, {

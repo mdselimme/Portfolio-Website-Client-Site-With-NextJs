@@ -43,8 +43,8 @@ const ManageBlog = async () => {
                 <TableCell>{blog?.title}</TableCell>
                 <TableCell>{blog?.views}</TableCell>
                 <TableCell>
-                  <Button className="sm:inline-flex rounded-full mr-4">
-                    Edit Blog
+                  <Button className="sm:inline-flex rounded-full mr-2">
+                    Edit
                   </Button>
                   <Button className="sm:inline-flex rounded-full">
                     Delete

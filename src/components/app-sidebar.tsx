@@ -5,9 +5,8 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { Logo } from "./Navbar/logo";
+import { Logo } from "./modules/Navbar/logo";
 import Link from "next/link";
-
 import SidebarContentSection from "./modules/Dashboard/SidebarContentSection";
 import LogOutButton from "./modules/Auth/LogOutButton";
 

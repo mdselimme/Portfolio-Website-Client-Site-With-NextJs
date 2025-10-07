@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
+import { axiosBaseUrl } from "@/lib/axios";
+import { useRouter } from "next/navigation";
 
 const blogSchema = z.object({
   title: z.string({ error: "Title is required" }).min(10, {
@@ -33,6 +35,7 @@ const blogSchema = z.object({
 });
 
 const AddBlogForm = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof blogSchema>>({
     resolver: zodResolver(blogSchema),
     defaultValues: {
@@ -56,6 +59,12 @@ const AddBlogForm = () => {
           .map((tag) => tag.trim()),
         isFeatured: values.isFeatured.toLowerCase() === "yes" ? true : false,
       };
+      const res = await axiosBaseUrl.post("/blog", addBlogData);
+      const data = await res.data;
+      if (data?.success) {
+        router.push("/blogs");
+        toast.success("Add Blog Successfully.");
+      }
       console.log(addBlogData);
     } catch (error: any) {
       console.log(error);
