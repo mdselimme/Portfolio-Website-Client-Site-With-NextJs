@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { IBlog } from "@/types/blog";
+import Link from "next/link";
 
 const ManageBlog = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/blog`, {
@@ -43,9 +44,11 @@ const ManageBlog = async () => {
                 <TableCell>{blog?.title}</TableCell>
                 <TableCell>{blog?.views}</TableCell>
                 <TableCell>
-                  <Button className="sm:inline-flex rounded-full mr-2">
-                    Edit
-                  </Button>
+                  <Link href={`/dashboard/manage-blog/${blog?._id}`}>
+                    <Button className="sm:inline-flex rounded-full mr-2">
+                      Edit
+                    </Button>
+                  </Link>
                   <Button className="sm:inline-flex rounded-full">
                     Delete
                   </Button>
