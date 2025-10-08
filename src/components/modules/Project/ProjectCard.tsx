@@ -48,7 +48,7 @@ const ProjectCard = ({ data }: { data: IProject }) => {
                 {data?.user?.name}
               </p>
               <p className="font-normal text-muted-foreground">
-                {dateConvert(data?.createdAt)}
+                {dateConvert(data?.createdAt as string)}
               </p>
             </div>
           </div>

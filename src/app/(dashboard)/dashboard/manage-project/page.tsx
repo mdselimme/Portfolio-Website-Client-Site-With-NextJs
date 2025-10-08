@@ -28,39 +28,43 @@ const ManageProject = async () => {
       <h3 className="text-center font-bold capitalize text-2xl mb-10">
         Manage Projects
       </h3>
-      <Table className="border">
-        <TableHeader>
-          <TableRow>
-            <TableHead className="text-center">Project Id</TableHead>
-            <TableHead className="text-center">Project Title</TableHead>
-            <TableHead className="text-center">Project Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {projectData === undefined ? (
+      {projectData === undefined ? (
+        <h1 className="text-2xl font-extrabold">No product found</h1>
+      ) : (
+        <Table className="border">
+          <TableHeader>
             <TableRow>
-              <TableCell className="font-medium text-center" colSpan={3}>
-                No Project published yet
-              </TableCell>
+              <TableHead className="text-center">Project Id</TableHead>
+              <TableHead className="text-center">Project Title</TableHead>
+              <TableHead className="text-center">Project Action</TableHead>
             </TableRow>
-          ) : (
-            projectData?.map((project: IProject) => (
-              <TableRow key={project?._id} className="text-center">
-                <TableCell>{project?._id}</TableCell>
-                <TableCell>{project?.title}</TableCell>
-                <TableCell>
-                  <Link href={`/dashboard/manage-project/${project?._id}`}>
-                    <Button className="sm:inline-flex rounded-full mr-2">
-                      Edit
-                    </Button>
-                  </Link>
-                  <ProjectDeleteButton projectId={project?._id} />
+          </TableHeader>
+          <TableBody>
+            {projectData === undefined ? (
+              <TableRow>
+                <TableCell className="font-medium text-center" colSpan={3}>
+                  No Project published yet
                 </TableCell>
               </TableRow>
-            ))
-          )}
-        </TableBody>
-      </Table>
+            ) : (
+              projectData?.map((project: IProject) => (
+                <TableRow key={project?._id} className="text-center">
+                  <TableCell>{project?._id}</TableCell>
+                  <TableCell>{project?.title}</TableCell>
+                  <TableCell>
+                    <Link href={`/dashboard/manage-project/${project?._id}`}>
+                      <Button className="sm:inline-flex rounded-full mr-2">
+                        Edit
+                      </Button>
+                    </Link>
+                    <ProjectDeleteButton projectId={project?._id as string} />
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      )}
     </div>
   );
 };

@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { axiosBaseUrl } from "@/lib/axios";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -30,12 +30,12 @@ const logInFormSchema = z.object({
 });
 
 export function LoginForm({
+  redirectPath = "/dashboard",
   className,
   ...props
-}: React.ComponentProps<"div">) {
+}: React.ComponentProps<"div"> & { redirectPath?: string }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const redirectPath = searchParams.get("redirect") || "/dashboard";
+
   // Define Login Form
   const form = useForm<z.infer<typeof logInFormSchema>>({
     resolver: zodResolver(logInFormSchema),
