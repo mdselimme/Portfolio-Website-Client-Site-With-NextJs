@@ -1,4 +1,5 @@
 import HomeBlog from "@/components/modules/Homepages/Blog";
+import HeroSection from "@/components/modules/Homepages/HeroSection";
 import HomeProjects from "@/components/modules/Homepages/HomeProject";
 import { Metadata } from "next";
 import React from "react";
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 const HomePage = () => {
   return (
     <div>
-      <h1>This is home page</h1>
+      <HeroSection />
       <HomeBlog />
       <HomeProjects />
     </div>

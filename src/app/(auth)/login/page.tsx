@@ -6,16 +6,17 @@ export const metadata: Metadata = {
   description: "Selim Portfolio Login Page",
 };
 
-const LogInPage = ({
+const LogInPage = async ({
   searchParams,
 }: {
-  searchParams: { redirect?: string };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
-  const redirect = searchParams.redirect || "/dashboard";
+  const { redirect } = await searchParams;
+  const redirectUrl = redirect || "/dashboard";
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
-        <LoginForm redirectPath={redirect} />
+        <LoginForm redirectPath={redirectUrl as string} />
       </div>
     </div>
   );

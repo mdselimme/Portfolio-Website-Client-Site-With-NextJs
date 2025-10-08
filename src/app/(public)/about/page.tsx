@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Download, MapPin } from "lucide-react";
+import { Download, Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -38,6 +38,12 @@ export const AboutPage = () => {
           <p className="text-lg font-medium text-justify">
             Currently I have completed my Higher Secondary Examination. Now I am
             eagerly waiting for study at Computer Science and Engineering.
+          </p>
+          <p className="text-lg font-medium text-justify flex items-center mt-5 text-blue-950">
+            <Phone size={16} className="mr-2" /> +8801737210235
+          </p>
+          <p className="text-lg font-medium text-justify flex items-center mt-5 text-blue-950">
+            <Mail size={16} className="mr-2" /> mdselim.contact@gmail.com
           </p>
           <p className="text-lg font-medium text-justify flex items-center mt-5 text-blue-950">
             <MapPin size={16} className="mr-2" /> Dhaka, Bangladesh

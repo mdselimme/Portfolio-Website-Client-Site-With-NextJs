@@ -10,7 +10,7 @@ const HomeProjects = async () => {
 
   return (
     <div className="container mx-auto pt-10 pb-20">
-      <h1 className="text-center font-bold text-3xl my-10">
+      <h1 className="text-center font-bold text-3xl mb-10">
         Our Latest Projects
       </h1>
       <div className="grid grid-cols-1 p-5 md:grid-cols-3 gap-20">

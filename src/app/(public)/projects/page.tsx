@@ -15,7 +15,7 @@ const ProjectsPage = async () => {
   return (
     <div className="container mx-auto py-20">
       <h1 className="text-center font-bold text-3xl my-10">Our All Projects</h1>
-      <div className="grid grid-cols-3 gap-20">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-20 px-5">
         {projectsData?.map((data: IProject) => (
           <ProjectCard data={data} key={data?._id} />
         ))}
