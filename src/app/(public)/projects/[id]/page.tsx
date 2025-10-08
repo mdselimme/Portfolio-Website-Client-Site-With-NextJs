@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
@@ -6,8 +7,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { IProject } from "@/types/project";
 import { dateConvert } from "@/utils/convertDate";
+import { SquareArrowOutUpRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const ProjectDetailsPage = async ({
@@ -20,7 +24,7 @@ const ProjectDetailsPage = async ({
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_LINK}/project/${id}`
   );
-  const { data } = await res.json();
+  const { data }: { data: IProject } = await res.json();
 
   return (
     <div className="container mx-auto py-32">
@@ -37,7 +41,10 @@ const ProjectDetailsPage = async ({
               </Avatar>
               <div>
                 <p className="font-semibold text-muted-foreground">
-                  {data?.user?.name} - {dateConvert(data?.createdAt)}
+                  {data?.user?.name} -{" "}
+                  {data?.createdAt
+                    ? dateConvert(data?.createdAt)
+                    : "No Publish Date"}
                 </p>
               </div>
             </div>
@@ -57,19 +64,64 @@ const ProjectDetailsPage = async ({
             </CardDescription>
           </CardHeader>
 
-          <CardFooter>
+          <CardFooter className="flex-col justify-start">
             <div className="flex gap-2 mb-3 items-center">
               <p className="text-lg font-semibold">Used Technology: </p>
               <ul className="flex gap-3">
                 {data?.technologyUsed?.map((tag: string) => (
                   <li
-                    className="capitalize text-sm bg-accent-foreground text-white py-2 px-4 rounded-full"
+                    className="capitalize text-sm  bg-amber-200 text-chart-3 py-2 px-4 rounded-full"
                     key={tag}
                   >
                     {tag}
                   </li>
                 ))}
               </ul>
+            </div>
+            <div className="mt-5 flex items-center">
+              {data?.clientLiveLink ? (
+                <Link
+                  className="mr-2 flex items-center cursor-pointer"
+                  href={data?.clientLiveLink || ""}
+                  target="_blank"
+                >
+                  <Button className="mr-5">
+                    Live Website
+                    <SquareArrowOutUpRight />
+                  </Button>
+                </Link>
+              ) : (
+                ""
+              )}
+              {data?.clientCodeLink ? (
+                <Link
+                  className="mr-2 flex items-center cursor-pointer"
+                  href={data?.clientCodeLink || ""}
+                  target="_blank"
+                >
+                  <Button className="mr-5">
+                    Client Code Link
+                    <SquareArrowOutUpRight />
+                  </Button>
+                </Link>
+              ) : (
+                ""
+              )}
+
+              {data?.serverCodeLink ? (
+                <Link
+                  className="mr-2 flex items-center cursor-pointer"
+                  href={data?.serverCodeLink || ""}
+                  target="_blank"
+                >
+                  <Button className="mr-5">
+                    Server Code Link
+                    <SquareArrowOutUpRight />
+                  </Button>
+                </Link>
+              ) : (
+                ""
+              )}
             </div>
           </CardFooter>
         </Card>

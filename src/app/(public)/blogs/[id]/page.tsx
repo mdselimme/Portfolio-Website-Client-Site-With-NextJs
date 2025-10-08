@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { IBlog } from "@/types/blog";
 import { dateConvert } from "@/utils/convertDate";
 import Image from "next/image";
 import React from "react";
@@ -18,7 +19,7 @@ const BlogDetailsPage = async ({
   const { id } = await params;
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/blog/${id}`);
-  const { data } = await res.json();
+  const { data }: { data: IBlog } = await res.json();
 
   return (
     <div className="container mx-auto py-32">

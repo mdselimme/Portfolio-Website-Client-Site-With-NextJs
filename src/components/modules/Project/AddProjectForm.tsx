@@ -19,6 +19,7 @@ import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 import { axiosBaseUrl } from "@/lib/axios";
 import { useRouter } from "next/navigation";
+import { IProject } from "@/types/project";
 
 const addProjectSchema = z.object({
   title: z.string({ error: "Title is required" }).min(10, {
@@ -33,25 +34,25 @@ const addProjectSchema = z.object({
   }),
   clientLiveLink: z
     .union([
-      z.url({ message: "client live link is not valid link." }),
+      z.url({ message: "Client live link is not valid." }),
       z.literal(""),
     ])
     .optional(),
   serverLiveLink: z
     .union([
-      z.url({ message: "server live link is not valid link." }),
+      z.url({ message: "Server live link is not valid." }),
       z.literal(""),
     ])
     .optional(),
   clientCodeLink: z
     .union([
-      z.url({ message: "client code link is not valid link." }),
+      z.url({ message: "Client code link is not valid." }),
       z.literal(""),
     ])
     .optional(),
   serverCodeLink: z
     .union([
-      z.url({ message: "server code link is not valid link." }),
+      z.url({ message: "Server code link is not valid." }),
       z.literal(""),
     ])
     .optional(),
@@ -76,7 +77,7 @@ const AddProjectForm = () => {
 
   async function onSubmit(values: z.infer<typeof addProjectSchema>) {
     try {
-      const addProjectData = {
+      const addProjectData: IProject = {
         title: values.title,
         description: values.description,
         thumbnail: values.thumbnail,
@@ -84,11 +85,20 @@ const AddProjectForm = () => {
           .toString()
           .split(",")
           .map((tag) => tag.trim()),
-        clientLiveLink: values?.clientLiveLink,
-        serverLiveLink: values?.serverLiveLink,
-        clientCodeLink: values?.clientCodeLink,
-        serverCodeLink: values?.serverCodeLink,
       };
+
+      const optionalFields = [
+        "clientLiveLink",
+        "serverLiveLink",
+        "clientCodeLink",
+        "serverCodeLink",
+      ] as const;
+
+      optionalFields.forEach((field) => {
+        if (values[field] && values[field]?.trim() !== "") {
+          addProjectData[field] = values[field];
+        }
+      });
       const res = await axiosBaseUrl.post("/project", addProjectData);
       const data = await res.data;
       if (data?.success) {

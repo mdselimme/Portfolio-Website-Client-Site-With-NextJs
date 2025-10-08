@@ -1,16 +1,16 @@
 export interface IProject {
-    _id: string
-    user: User
+    _id?: string
+    user?: User
     title: string
     thumbnail: string
     description: string
-    clientLiveLink: string
-    serverLiveLink: string
-    clientCodeLink: string
-    serverCodeLink: string
+    clientLiveLink?: string
+    serverLiveLink?: string
+    clientCodeLink?: string
+    serverCodeLink?: string
     technologyUsed: string[]
-    createdAt: string
-    updatedAt: string
+    createdAt?: string
+    updatedAt?: string
 }
 
 export interface User {
