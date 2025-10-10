@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: "Selim.Dev About Me",
 };
 
+export const dynamic = "force-static";
+
 export const AboutPage = () => {
   return (
     <div className="container mx-auto py-28 pb-20 px-5">

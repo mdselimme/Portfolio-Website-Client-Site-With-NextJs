@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   description: "Selim Portfolio Login Page",
 };
 
+export const dynamic = "force-static";
+
 const LogInPage = async ({
   searchParams,
 }: {
