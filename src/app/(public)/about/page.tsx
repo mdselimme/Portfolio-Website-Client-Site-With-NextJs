@@ -4,12 +4,50 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import MyImage from "../../assets/md-selim-profile.png";
+import Js from "../../assets/js.png";
+import Ts from "../../assets/typescript.png";
+import ReactIm from "../../assets/react.png";
+import Node from "../../assets/nodejs.png";
+import Sql from "../../assets/database.png";
+import Postgres from "../../assets/postgre.png";
+import Mongodb from "../../assets/mongo.png";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: `Selim Portfolio - About`,
   description: "Selim.Dev About Me",
 };
+
+const skills = [
+  {
+    level: "Javascript",
+    image: Js,
+  },
+  {
+    level: "Typescript",
+    image: Ts,
+  },
+  {
+    level: "React",
+    image: ReactIm,
+  },
+  {
+    level: "Node",
+    image: Node,
+  },
+  {
+    level: "SQL",
+    image: Sql,
+  },
+  {
+    level: "Postgres",
+    image: Postgres,
+  },
+  {
+    level: "Mongodb",
+    image: Mongodb,
+  },
+];
 
 export const dynamic = "force-static";
 
@@ -61,6 +99,28 @@ export const AboutPage = () => {
             <Download />
           </Button>
         </div>
+      </div>
+      {/* Skills Section  */}
+      <h1 className="text-center text-3xl capitalize font-extrabold">
+        My Skills & Expertise
+      </h1>
+      <div className="grid grid-cols-2 md:grid-cols-6 pt-10 pb-20 items-center gap-10">
+        {skills.map((skill) => (
+          <div
+            key={skill?.level}
+            className="p-10 bg-sidebar-accent rounded-3xl"
+          >
+            <div>
+              <Image
+                className="w-full rounded-4xl"
+                src={skill?.image}
+                alt="my-image"
+                quality={85}
+              ></Image>
+            </div>
+            <h2 className="text-center font-bold mt-2">{skill?.level}</h2>
+          </div>
+        ))}
       </div>
     </div>
   );

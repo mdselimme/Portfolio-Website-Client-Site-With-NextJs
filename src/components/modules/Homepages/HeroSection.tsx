@@ -47,16 +47,25 @@ const HeroSection = () => {
           </div>
           {/* Social Link  */}
           <div className="flex items-center gap-8 mt-10">
-            <Link href={"https://github.com/mdselimme"} target="_blank">
+            <Link
+              className="bg-sidebar-accent p-2 rounded-full"
+              href={"https://github.com/mdselimme"}
+              target="_blank"
+            >
               <Github />
             </Link>
             <Link
+              className="bg-sidebar-accent p-2 rounded-full"
               href={"https://www.linkedin.com/in/mdselimme"}
               target="_blank"
             >
               <Linkedin />
             </Link>
-            <Link href={"https://www.facebook.com/mdselimme"} target="_blank">
+            <Link
+              className="bg-sidebar-accent p-2 rounded-full"
+              href={"https://www.facebook.com/mdselimme"}
+              target="_blank"
+            >
               <Facebook />
             </Link>
           </div>
