@@ -1,3 +1,4 @@
+"use server";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -5,7 +6,11 @@ import { IProject } from "@/types/project";
 import ProjectCard from "../Project/ProjectCard";
 
 const HomeProjects = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/project`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/project`, {
+    next: {
+      revalidate: 60,
+    },
+  });
   const { data: projectsData } = await res.json();
 
   return (

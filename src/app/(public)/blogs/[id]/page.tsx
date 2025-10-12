@@ -11,6 +11,29 @@ import { dateConvert } from "@/utils/convertDate";
 import Image from "next/image";
 import React from "react";
 
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const { id } = await params;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/blog/${id}`);
+  const { data }: { data: IBlog } = await res.json();
+  return {
+    title: data?.title,
+    description: data?.description,
+  };
+};
+
+export const generateStaticParams = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/blog`);
+  const { data } = await res.json();
+
+  return data.map((blog: IBlog) => ({
+    id: blog._id,
+  }));
+};
+
 const BlogDetailsPage = async ({
   params,
 }: {

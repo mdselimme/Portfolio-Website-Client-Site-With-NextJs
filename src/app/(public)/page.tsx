@@ -1,4 +1,4 @@
-import HomeBlog from "@/components/modules/Homepages/Blog";
+import HomeBlog from "@/components/modules/Homepages/HomeBlog";
 import HeroSection from "@/components/modules/Homepages/HeroSection";
 import HomeProjects from "@/components/modules/Homepages/HomeProject";
 import { Metadata } from "next";
