@@ -2,7 +2,7 @@
 
 It's a client site for a portfolio website. In this client site has an user manage his portfolio website dynamically. User can manage their website easily without any hassle.
 
-## Backend Technology Stack
+## Frontend Technology Stack
 
 - **Next Js**
 
