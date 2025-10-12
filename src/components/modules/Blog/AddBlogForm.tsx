@@ -19,6 +19,7 @@ import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 import { axiosBaseUrl } from "@/lib/axios";
 import { useRouter } from "next/navigation";
+import { validateTag } from "@/utils/validateTag";
 
 const blogSchema = z.object({
   title: z.string({ error: "Title is required" }).min(10, {
@@ -59,14 +60,13 @@ const AddBlogForm = () => {
           .map((tag) => tag.trim()),
         isFeatured: values.isFeatured.toLowerCase() === "yes" ? true : false,
       };
-      console.log(addBlogData);
       const res = await axiosBaseUrl.post("/blog", addBlogData);
       const data = await res.data;
       if (data?.success) {
+        validateTag("BLOGS");
         router.push("/blogs");
         toast.success("Add Blog Successfully.");
       }
-      console.log(addBlogData);
     } catch (error: any) {
       console.log(error);
       toast.error(error?.response?.data?.message || "Login failed");

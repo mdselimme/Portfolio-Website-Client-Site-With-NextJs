@@ -2,6 +2,7 @@ import React from "react";
 import { IBlog } from "@/types/blog";
 import BlogCard from "@/components/modules/Blog/BlogCard";
 import { Metadata } from "next";
+import { getBlogs } from "@/utils/getBlogs";
 
 export const metadata: Metadata = {
   title: `Selim Portfolio - Blogs`,
@@ -9,12 +10,7 @@ export const metadata: Metadata = {
 };
 
 const BlogsPage = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/blog`, {
-    next: {
-      revalidate: 60,
-    },
-  });
-  const { data: blogsData } = await res.json();
+  const blogsData = await getBlogs();
 
   return (
     <div className="container mx-auto px-4 py-20">

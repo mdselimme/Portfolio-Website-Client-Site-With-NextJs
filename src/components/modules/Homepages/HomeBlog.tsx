@@ -4,14 +4,10 @@ import { IBlog } from "@/types/blog";
 import BlogCard from "../Blog/BlogCard";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { getBlogs } from "@/utils/getBlogs";
 
 const HomeBlog = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/blog`, {
-    next: {
-      revalidate: 60,
-    },
-  });
-  const { data: blogsData } = await res.json();
+  const blogsData = await getBlogs();
 
   return (
     <div className="container mx-auto pb-10 pt-10">

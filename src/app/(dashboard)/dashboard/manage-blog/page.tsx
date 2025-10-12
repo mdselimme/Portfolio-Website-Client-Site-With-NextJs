@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { IBlog } from "@/types/blog";
+import { getBlogs } from "@/utils/getBlogs";
 import { Metadata } from "next";
 import Link from "next/link";
 export const metadata: Metadata = {
@@ -17,10 +18,7 @@ export const metadata: Metadata = {
 };
 
 const ManageBlog = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/blog`, {
-    cache: "no-store",
-  });
-  const { data: blogsData } = await res.json();
+  const blogsData = await getBlogs();
 
   return (
     <div className="container mx-auto mt-6">

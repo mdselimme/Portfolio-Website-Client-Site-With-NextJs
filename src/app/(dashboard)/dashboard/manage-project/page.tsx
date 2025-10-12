@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { IProject } from "@/types/project";
+import { getProjects } from "@/utils/getProjects";
 import { Metadata } from "next";
 import Link from "next/link";
 
@@ -18,10 +19,7 @@ export const metadata: Metadata = {
 };
 
 const ManageProject = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/project`, {
-    cache: "no-store",
-  });
-  const { data: projectData } = await res.json();
+  const projectData = await getProjects();
 
   return (
     <div className="container mx-auto mt-6">

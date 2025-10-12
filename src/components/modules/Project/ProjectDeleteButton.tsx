@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import { axiosBaseUrl } from "@/lib/axios";
+import { validateTag } from "@/utils/validateTag";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -13,6 +14,7 @@ const ProjectDeleteButton = ({ projectId }: { projectId: string }) => {
       const res = await axiosBaseUrl.delete(`/project/${projectId}`);
       const data = await res.data;
       if (data?.success) {
+        validateTag("PROJECTS");
         router.push("/projects");
         toast.success("Delete Project Successfully.");
       }

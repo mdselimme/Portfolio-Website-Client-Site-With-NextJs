@@ -20,6 +20,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { axiosBaseUrl } from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import { IProject } from "@/types/project";
+import { validateTag } from "@/utils/validateTag";
 
 const addProjectSchema = z.object({
   title: z.string({ error: "Title is required" }).min(10, {
@@ -102,6 +103,7 @@ const AddProjectForm = () => {
       const res = await axiosBaseUrl.post("/project", addProjectData);
       const data = await res.data;
       if (data?.success) {
+        validateTag("PROJECTS");
         router.push("/projects");
         toast.success("Add Project Successfully.");
       }
