@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 const Profile = async () => {
   const user = await getUserData();
+  console.log(user);
 
   return (
     <Card className="w-full md:col-span-2 p-10">
@@ -30,6 +31,7 @@ const Profile = async () => {
               fill={true}
               alt={`${user?.name} image`}
               loading="lazy"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               quality={10}
             />
             <AvatarFallback>Profile Image</AvatarFallback>

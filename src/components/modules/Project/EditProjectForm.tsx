@@ -89,7 +89,6 @@ const EditProjectFrom = ({ project }: { project: IProject }) => {
         toast.success("Update Project Successfully.");
       }
     } catch (error: any) {
-      console.log(error);
       toast.error(error?.response?.data?.message || "Update Project Failed.");
     }
   }

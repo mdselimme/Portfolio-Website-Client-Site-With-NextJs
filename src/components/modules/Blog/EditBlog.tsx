@@ -60,7 +60,6 @@ const EditBlogForm = ({ blog }: { blog: IBlog }) => {
           .map((tag) => tag.trim()),
         isFeatured: values.isFeatured.toLowerCase() === "yes" ? true : false,
       };
-      console.log(editBlogData);
       const res = await axiosBaseUrl.patch(`/blog/${blog?._id}`, editBlogData);
       const data = await res.data;
       if (data?.success) {
@@ -68,7 +67,6 @@ const EditBlogForm = ({ blog }: { blog: IBlog }) => {
         toast.success("Edit Blog Successfully.");
       }
     } catch (error: any) {
-      console.log(error);
       toast.error(error?.response?.data?.message || "Edit blog failed failed");
     }
   }

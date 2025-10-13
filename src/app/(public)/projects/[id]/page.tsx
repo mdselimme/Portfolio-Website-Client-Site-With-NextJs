@@ -9,10 +9,35 @@ import {
 } from "@/components/ui/card";
 import { IProject } from "@/types/project";
 import { dateConvert } from "@/utils/convertDate";
+import { getProjects } from "@/utils/getProjects";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const { id } = await params;
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_LINK}/project/${id}`
+  );
+  const { data }: { data: IProject } = await res.json();
+  return {
+    title: data?.title,
+    description: data?.description,
+  };
+};
+
+export const generateStaticParams = async () => {
+  const data = await getProjects();
+
+  return data.map((blog: IProject) => ({
+    id: blog._id,
+  }));
+};
 
 const ProjectDetailsPage = async ({
   params,

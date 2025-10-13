@@ -68,8 +68,7 @@ const AddBlogForm = () => {
         toast.success("Add Blog Successfully.");
       }
     } catch (error: any) {
-      console.log(error);
-      toast.error(error?.response?.data?.message || "Login failed");
+      toast.error(error?.response?.data?.message || "Add Blog failed");
     }
   }
   return (

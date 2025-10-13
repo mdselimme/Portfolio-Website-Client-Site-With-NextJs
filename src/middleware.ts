@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(request: NextRequest) {
 
     const accessToken = request.cookies.get("accessToken")?.value;
-    const refreshToken = request.cookies.get("refreshToken")?.value;
 
     const { pathname, search } = request.nextUrl;
 
@@ -34,4 +33,3 @@ export const config = {
         "/dashboard/:path*",
     ],
 };
-

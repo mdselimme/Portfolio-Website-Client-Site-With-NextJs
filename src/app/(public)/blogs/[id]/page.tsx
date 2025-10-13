@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { IBlog } from "@/types/blog";
 import { dateConvert } from "@/utils/convertDate";
+import { getBlogs } from "@/utils/getBlogs";
 import Image from "next/image";
 import React from "react";
 
@@ -26,8 +27,7 @@ export const generateMetadata = async ({
 };
 
 export const generateStaticParams = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/blog`);
-  const { data } = await res.json();
+  const data = await getBlogs();
 
   return data.map((blog: IBlog) => ({
     id: blog._id,

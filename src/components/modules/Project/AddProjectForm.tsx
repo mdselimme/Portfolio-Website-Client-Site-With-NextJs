@@ -108,7 +108,6 @@ const AddProjectForm = () => {
         toast.success("Add Project Successfully.");
       }
     } catch (error: any) {
-      console.log(error);
       toast.error(error?.response?.data?.message || "Add Project Failed.");
     }
   }

@@ -69,7 +69,6 @@ axiosBaseUrl.interceptors.response.use((response) => {
                 processQueue(null);
                 return axiosBaseUrl(originalRequest);
             } catch (error) {
-                console.error(error)
                 processQueue(error);
                 return Promise.reject(error)
             } finally {

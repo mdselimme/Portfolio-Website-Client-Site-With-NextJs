@@ -1,13 +1,12 @@
-import { getAccessToken } from "./getAccessToken";
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
+"use server"
+import { tokenValueCheck } from "./tokenValueCheck";
 
 
 
 export const getUserData = async () => {
     try {
 
-        const accessToken = await getAccessToken();
+        const accessToken = await tokenValueCheck("accessToken");
 
         let user = null;
         if (accessToken) {
@@ -15,16 +14,17 @@ export const getUserData = async () => {
                 headers: {
                     Authorization: `${accessToken}`,
                 },
-                cache: "no-store",
+                cache: "force-cache",
             });
-
             if (!res.ok) {
                 throw new Error("No user found.")
             }
             user = await res.json();
             return user?.data;
+        } else {
+            throw new Error("No access token found.")
         }
-    } catch (error: any) {
-        console.log(error)
+    } catch {
+        return null
     }
 }

@@ -56,8 +56,7 @@ const EditProfileForm = ({ data }: { data: IUser }) => {
         toast.success("Update User Successfully.");
       }
     } catch (error: any) {
-      console.log(error);
-      toast.error(error?.response?.data?.message || "Update Profile");
+      toast.error(error?.response?.data?.message || "Update Profile Failed");
     }
   }
   return (

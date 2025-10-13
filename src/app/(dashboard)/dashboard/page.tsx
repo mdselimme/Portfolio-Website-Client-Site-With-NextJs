@@ -7,9 +7,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { getAccessToken } from "@/utils/getAccessToken";
 import Profile from "@/components/modules/Dashboard/Profile";
 import { Metadata } from "next";
+import { tokenValueCheck } from "@/utils/tokenValueCheck";
 
 export const metadata: Metadata = {
   title: `Selim Portfolio - Dashboard`,
@@ -17,15 +17,16 @@ export const metadata: Metadata = {
 };
 
 const DashboardHome = async () => {
-  const accessToken = await getAccessToken();
+  const accessToken = await tokenValueCheck("accessToken");
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/stats`, {
     headers: {
       Authorization: `${accessToken}`,
     },
+    credentials: "include",
     cache: "no-store",
   });
   const { data: totalStats } = await res.json();
-
+  console.log(totalStats);
   return (
     <div className="container mx-auto">
       <h1 className="text-center font-extrabold text-2xl my-4">
