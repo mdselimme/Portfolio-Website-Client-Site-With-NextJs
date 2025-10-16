@@ -6,6 +6,7 @@ export const getBlogs = async () => {
             tags: ["BLOGS"]
         },
     });
+    if (!res.ok) return undefined;
     const { data } = await res.json();
     return data || undefined;
 };

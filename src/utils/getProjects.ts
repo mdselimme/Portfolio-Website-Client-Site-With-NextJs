@@ -7,7 +7,8 @@ export const getProjects = async () => {
             tags: ["PROJECTS"]
         }
     });
+    if (!res.ok) return undefined;
     const { data } = await res.json();
 
-    return data;
+    return data || undefined;
 };

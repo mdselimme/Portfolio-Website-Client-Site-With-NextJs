@@ -1,19 +1,14 @@
-// utils/getUserData.ts
-
-
-export const getUserData = async (cookiesHeader?: string) => {
+export const getUserData = async (cookieHeader?: string) => {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/user/me`, {
+            headers: cookieHeader ? { Cookie: cookieHeader } : undefined,
+            credentials: cookieHeader ? undefined : "include",
             cache: "no-store",
-            credentials: "include",
-            headers: {
-                Cookie: cookiesHeader || "", // forward cookies to backend
-            },
         });
-        if (!res.ok) return undefined;
 
-        const { data: userData } = await res.json();
-        return userData || undefined;
+        if (!res.ok) return undefined;
+        const { data } = await res.json();
+        return data || undefined;
     } catch {
         return undefined;
     }

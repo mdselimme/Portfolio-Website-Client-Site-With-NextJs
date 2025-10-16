@@ -14,7 +14,8 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { cookies } from "next/headers";
 const Profile = async () => {
-  const cookieHeader = cookies().toString();
+  const cookiesData = await cookies();
+  const cookieHeader = cookiesData.toString();
   const user = await getUserData(cookieHeader);
   return (
     <div className=" md:col-span-2">

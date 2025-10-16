@@ -17,7 +17,8 @@ export const metadata: Metadata = {
 };
 
 const DashboardHome = async () => {
-  const cookieHeader = cookies().toString();
+  const cookiesData = await cookies();
+  const cookieHeader = cookiesData.toString();
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/stats`, {
     credentials: "include",
     cache: "no-store",
