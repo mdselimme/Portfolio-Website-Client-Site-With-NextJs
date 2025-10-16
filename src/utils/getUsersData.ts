@@ -1,30 +1,20 @@
-"use server"
-import { tokenValueCheck } from "./tokenValueCheck";
+// utils/getUserData.ts
 
 
-
-export const getUserData = async () => {
+export const getUserData = async (cookiesHeader?: string) => {
     try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/user/me`, {
+            cache: "no-store",
+            credentials: "include",
+            headers: {
+                Cookie: cookiesHeader || "", // forward cookies to backend
+            },
+        });
+        if (!res.ok) return undefined;
 
-        const accessToken = await tokenValueCheck("accessToken");
-
-        let user = null;
-        if (accessToken) {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/user/me`, {
-                headers: {
-                    Authorization: `${accessToken}`,
-                },
-                cache: "force-cache",
-            });
-            if (!res.ok) {
-                throw new Error("No user found.")
-            }
-            user = await res.json();
-            return user?.data;
-        } else {
-            throw new Error("No access token found.")
-        }
+        const { data: userData } = await res.json();
+        return userData || undefined;
     } catch {
-        return null
+        return undefined;
     }
-}
+};

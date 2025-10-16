@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { getUserData } from "@/utils/getUsersData";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -11,7 +12,8 @@ export const metadata: Metadata = {
 };
 
 const EditProfile = async () => {
-  const user = await getUserData();
+  const cookieHeader = cookies().toString();
+  const user = await getUserData(cookieHeader);
   return (
     <div>
       <div className="w-full md:w-[780px] mx-auto mt-24">

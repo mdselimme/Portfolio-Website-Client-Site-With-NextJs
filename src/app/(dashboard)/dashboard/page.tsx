@@ -9,7 +9,7 @@ import {
 import Link from "next/link";
 import Profile from "@/components/modules/Dashboard/Profile";
 import { Metadata } from "next";
-import { tokenValueCheck } from "@/utils/tokenValueCheck";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: `Selim Portfolio - Dashboard`,
@@ -17,56 +17,64 @@ export const metadata: Metadata = {
 };
 
 const DashboardHome = async () => {
-  const accessToken = await tokenValueCheck("accessToken");
+  const cookieHeader = cookies().toString();
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/stats`, {
-    headers: {
-      Authorization: `${accessToken}`,
-    },
     credentials: "include",
     cache: "no-store",
+    headers: {
+      Cookie: cookieHeader,
+    },
   });
   const { data: totalStats } = await res.json();
-  console.log(totalStats);
+
   return (
     <div className="container mx-auto">
       <h1 className="text-center font-extrabold text-2xl my-4">
         Dashboard Home
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 p-6 gap-8">
-        <Card className="w-full">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold text-center">
-              Total Upload Project
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-center font-extrabold text-3xl">
-              {totalStats?.totalProjects}
-            </p>
-          </CardContent>
-          <CardFooter className="justify-center">
-            <Link className="underline" href={"/dashboard/manage-project"}>
-              Go to Project Management
-            </Link>
-          </CardFooter>
-        </Card>
-        <Card className="w-full text-center">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold">
-              Total Upload Blog
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-center font-extrabold text-3xl">
-              {totalStats?.totalBlogs}
-            </p>
-          </CardContent>
-          <CardFooter className="justify-center">
-            <Link className="underline" href={"/dashboard/manage-blog"}>
-              Go to Blogs Management
-            </Link>
-          </CardFooter>
-        </Card>
+        {totalStats === undefined ? (
+          <h1 className="text-center font-bold text-2xl md:col-span-2 border p-5 rounded-xl">
+            No Stats Found
+          </h1>
+        ) : (
+          <>
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold text-center">
+                  Total Upload Project
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-center font-extrabold text-3xl">
+                  {totalStats?.totalProjects}
+                </p>
+              </CardContent>
+              <CardFooter className="justify-center">
+                <Link className="underline" href={"/dashboard/manage-project"}>
+                  Go to Project Management
+                </Link>
+              </CardFooter>
+            </Card>
+            <Card className="w-full text-center">
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold">
+                  Total Upload Blog
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-center font-extrabold text-3xl">
+                  {totalStats?.totalBlogs}
+                </p>
+              </CardContent>
+              <CardFooter className="justify-center">
+                <Link className="underline" href={"/dashboard/manage-blog"}>
+                  Go to Blogs Management
+                </Link>
+              </CardFooter>
+            </Card>
+          </>
+        )}
         {/* Profile Data Show Components */}
         <Profile />
       </div>

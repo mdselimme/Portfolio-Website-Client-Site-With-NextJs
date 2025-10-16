@@ -4,9 +4,12 @@ import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
 import Link from "next/link";
 import { getUserData } from "@/utils/getUsersData";
+import { cookies } from "next/headers";
 
 const Navbar = async () => {
-  const user = await getUserData();
+  const cookieStore = await cookies();
+  const cookieHeader = cookieStore.toString();
+  const user = await getUserData(cookieHeader);
 
   return (
     <div className="bg-muted z-20">
