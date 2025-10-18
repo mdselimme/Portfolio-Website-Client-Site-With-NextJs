@@ -48,11 +48,13 @@ export function LoginForm({
 
   async function onSubmit(values: z.infer<typeof logInFormSchema>) {
     try {
-      const res = await axiosBaseUrl.post("/auth/login", values);
+      const res = await axiosBaseUrl.post("/auth/login", values, {
+        withCredentials: true,
+      });
       const data = await res.data;
       if (data?.success) {
+        router.push(`${redirectPath}`);
         setAccessToken(data?.data?.accessToken);
-        router.push(redirectPath);
         toast.success("Login Successful.");
       }
     } catch (error: any) {
@@ -78,7 +80,7 @@ export function LoginForm({
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Username</FormLabel>
+                        <FormLabel>Email</FormLabel>
                         <FormControl>
                           <Input
                             autoComplete="email"

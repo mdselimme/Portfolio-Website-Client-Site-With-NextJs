@@ -1,35 +1,36 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function middleware(request: NextRequest) {
-    const accessToken = request.cookies.get("accessToken")?.value;
-    const refreshToken = request.cookies.get("refreshToken")?.value;
+export function middleware(request: NextRequest) {
+
+    const accessToken = request.cookies.get("accessToken");
+    const refreshToken = request.cookies.get("refreshToken");
+
     const { pathname, search } = request.nextUrl;
 
-    const protectedRoutes = ["/dashboard"];
-    const isProtected = protectedRoutes.some((route) =>
-        pathname.startsWith(route)
-    );
+    // Protected routes
+    const protectedRoutes = ["/dashboard", "/dashboard/:path*"];
 
-    // Only block if no tokens at all
+    const isProtected = protectedRoutes.some((route) => pathname.startsWith(route));
+
+    // If route is protected and no token
     if (isProtected && !accessToken && !refreshToken) {
-        return redirectToLogin(request, pathname, search);
+        const redirectUrl = new URL("/login", request.url);
+        // add original path to redirect query param
+        redirectUrl.searchParams.set("redirect", pathname + search);
+        return NextResponse.redirect(redirectUrl);
     }
 
-    // If logged in and visits /login
-    if (pathname === "/login" && accessToken) {
+    if (pathname === "/login" && accessToken && refreshToken) {
         const dashboardUrl = new URL("/dashboard", request.url);
         return NextResponse.redirect(dashboardUrl);
     }
 
+    //Otherwise allow request
     return NextResponse.next();
 }
 
-function redirectToLogin(request: NextRequest, pathname: string, search: string) {
-    const redirectUrl = new URL("/login", request.url);
-    redirectUrl.searchParams.set("redirect", pathname + search);
-    return NextResponse.redirect(redirectUrl);
-}
-
 export const config = {
-    matcher: ["/dashboard/:path*"],
+    matcher: [
+        "/dashboard/:path*",
+    ],
 };
