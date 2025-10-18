@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "./logo";
 import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
-import { useUser } from "@/context/UserContext";
+import { useAuth } from "@/context/AuthContext";
 
 const Navbar = () => {
-  const { user } = useUser();
+  const { accessToken } = useAuth();
 
   return (
     <div className="bg-muted z-20">
@@ -18,7 +18,7 @@ const Navbar = () => {
           </Link>
           <NavMenu className="hidden md:block" />
           <div className="flex items-center gap-3">
-            {user?.email ? (
+            {accessToken ? (
               <Link href="/dashboard">
                 <Button>Dashboard</Button>
               </Link>

@@ -19,6 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import Password from "@/components/password";
+import { useAuth } from "@/context/AuthContext";
 
 const logInFormSchema = z.object({
   email: z.email().min(2, {
@@ -35,7 +36,7 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div"> & { redirectPath?: string }) {
   const router = useRouter();
-
+  const { setAccessToken } = useAuth();
   // Define Login Form
   const form = useForm<z.infer<typeof logInFormSchema>>({
     resolver: zodResolver(logInFormSchema),
@@ -50,6 +51,7 @@ export function LoginForm({
       const res = await axiosBaseUrl.post("/auth/login", values);
       const data = await res.data;
       if (data?.success) {
+        setAccessToken(data?.data?.accessToken);
         router.push(redirectPath);
         toast.success("Login Successful.");
       }

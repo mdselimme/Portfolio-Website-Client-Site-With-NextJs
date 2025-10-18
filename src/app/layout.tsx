@@ -1,9 +1,7 @@
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
-import { UserProvider } from "@/context/UserContext";
-import { cookies } from "next/headers";
-import { getUserDataServer } from "@/utils/getUserDataServer";
+import { AuthProver } from "@/context/AuthContext";
 
 const montserratFont = Montserrat({
   subsets: ["latin"],
@@ -15,18 +13,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = cookies();
-  const cookieHeader = cookieStore.toString();
-  const serverUser = await getUserDataServer(cookieHeader);
-
   return (
     <html lang="en">
       <body className={`${montserratFont.variable} antialiased`}>
         <div>
-          <UserProvider serverUser={serverUser}>
+          <AuthProver>
             {children}
             <Toaster richColors position="top-center" />
-          </UserProvider>
+          </AuthProver>
         </div>
       </body>
     </html>

@@ -18,7 +18,6 @@ import {
 import { useForm } from "react-hook-form";
 import { axiosBaseUrl } from "@/lib/axios";
 import { useRouter } from "next/navigation";
-import { useUser } from "@/context/UserContext";
 
 const updateUserZodSchema = z.object({
   photo: z.url({ error: "url is not valid." }),
@@ -34,13 +33,12 @@ const updateUserZodSchema = z.object({
 });
 
 const EditProfileForm = () => {
-  const { user } = useUser();
   const router = useRouter();
   const form = useForm<z.infer<typeof updateUserZodSchema>>({
     resolver: zodResolver(updateUserZodSchema),
     defaultValues: {
-      photo: user?.photo,
-      phone: user?.phone,
+      photo: "",
+      phone: "",
     },
   });
 
