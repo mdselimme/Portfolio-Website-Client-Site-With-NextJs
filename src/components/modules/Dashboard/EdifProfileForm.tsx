@@ -49,7 +49,9 @@ const EditProfileForm = ({ user }: { user: IUser }) => {
         phone: values.phone,
         photo: values.photo,
       };
-      const res = await axiosBaseUrl.patch("/user", updateData);
+      const res = await axiosBaseUrl.patch("/user", updateData, {
+        withCredentials: true,
+      });
       const data = await res.data;
       if (data?.success) {
         router.push("/dashboard");

@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { axiosBaseUrl } from "@/lib/axios";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import {
   Form,
   FormControl,
@@ -53,6 +54,22 @@ export function LoginForm({
       });
       const data = await res.data;
       if (data?.success) {
+        const { accessToken, refreshToken } = data?.data;
+        if (accessToken) {
+          Cookies.set("accessToken", accessToken, {
+            expires: 2,
+            secure: true,
+            sameSite: "None",
+          });
+          setAccessToken(accessToken);
+        }
+        if (refreshToken) {
+          Cookies.set("refreshToken", refreshToken, {
+            expires: 30,
+            secure: true,
+            sameSite: "None",
+          });
+        }
         router.push(`${redirectPath}`);
         setAccessToken(data?.data?.accessToken);
         toast.success("Login Successful.");

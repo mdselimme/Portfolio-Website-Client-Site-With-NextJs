@@ -5,7 +5,17 @@ import { axiosBaseUrl } from "@/lib/axios";
 import { validateTag } from "@/utils/validateTag";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 const ProjectDeleteButton = ({ projectId }: { projectId: string }) => {
   const router = useRouter();
 
@@ -24,9 +34,24 @@ const ProjectDeleteButton = ({ projectId }: { projectId: string }) => {
   };
 
   return (
-    <Button onClick={deleteProject} className="sm:inline-flex rounded-full">
-      Delete
-    </Button>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button className="sm:inline-flex rounded-full">Delete</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure ?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete your
+            project and remove your data from our servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={deleteProject}>Delete</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
 

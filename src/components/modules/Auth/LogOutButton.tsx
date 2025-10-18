@@ -7,7 +7,7 @@ import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "sonner";
-
+import Cookies from "js-cookie";
 const LogOutButton = () => {
   const router = useRouter();
   const { setAccessToken } = useAuth();
@@ -16,6 +16,8 @@ const LogOutButton = () => {
       const res = await axiosBaseUrl.post("/auth/logout");
       const data = await res.data;
       if (data?.success) {
+        Cookies.remove("accessToken", { sameSite: "None", secure: true });
+        Cookies.remove("refreshToken", { sameSite: "None", secure: true });
         setAccessToken(null);
         router.push("/");
         toast.success("LogOut Successful.");
