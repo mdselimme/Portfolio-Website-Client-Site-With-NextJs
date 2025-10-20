@@ -1,5 +1,5 @@
 import ProjectCard from "@/components/modules/Project/ProjectCard";
-import { IProject } from "@/types/project";
+import { IProject } from "@/types/project.types";
 import { getProjects } from "@/utils/getProjects";
 import { Metadata } from "next";
 import React from "react";

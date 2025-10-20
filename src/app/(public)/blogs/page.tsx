@@ -1,5 +1,5 @@
 import React from "react";
-import { IBlog } from "@/types/blog";
+import { IBlog } from "@/types/blog.type";
 import BlogCard from "@/components/modules/Blog/BlogCard";
 import { Metadata } from "next";
 import { getBlogs } from "@/utils/getBlogs";

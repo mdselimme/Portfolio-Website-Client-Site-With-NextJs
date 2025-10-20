@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { IProject } from "@/types/project";
+import { IProject } from "@/types/project.types";
 import ProjectCard from "../Project/ProjectCard";
 import { getProjects } from "@/utils/getProjects";
 

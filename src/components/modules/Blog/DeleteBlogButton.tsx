@@ -1,9 +1,6 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
-import { axiosBaseUrl } from "@/lib/axios";
-import { validateTag } from "@/utils/validateTag";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   AlertDialog,
@@ -16,20 +13,21 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { deleteBlogAction } from "@/action/blogAction";
+import { useRouter } from "next/navigation";
+
 const DeleteBlogButton = ({ blogId }: { blogId: string }) => {
   const router = useRouter();
 
   const deleteBlog = async () => {
     try {
-      const res = await axiosBaseUrl.delete(`/blog/${blogId}`);
-      const data = await res.data;
-      if (data?.success) {
-        validateTag("BLOGS");
-        router.push("/blogs");
-        toast.success("Delete Blog Successfully.");
+      const result = await deleteBlogAction(blogId);
+      if (result?.success) {
+        router.push("/");
+        toast.success("blog deleted successfully.");
       }
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Delete Blog Failed.");
+      toast.error(error.message || "Delete Blog Failed.");
     }
   };
 

@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { IBlog } from "@/types/blog";
+import { IBlog } from "@/types/blog.type";
 import { dateConvert } from "@/utils/convertDate";
 import Image from "next/image";
 import Link from "next/link";

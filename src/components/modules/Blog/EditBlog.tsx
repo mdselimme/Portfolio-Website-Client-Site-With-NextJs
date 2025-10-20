@@ -17,9 +17,9 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
-import { axiosBaseUrl } from "@/lib/axios";
 import { useRouter } from "next/navigation";
-import { IBlog } from "@/types/blog";
+import { IBlog } from "@/types/blog.type";
+import { updateBlogAction } from "@/action/blogAction";
 
 const blogSchema = z.object({
   title: z.string({ error: "Title is required" }).min(10, {
@@ -43,7 +43,7 @@ const EditBlogForm = ({ blog }: { blog: IBlog }) => {
       title: blog?.title,
       description: blog?.description,
       thumbnail: blog?.thumbnail,
-      tags: blog?.tags.join(",  "),
+      tags: (blog?.tags ?? []).join(",  "),
       isFeatured: blog?.isFeatured ? "Yes" : "No",
     },
   });
@@ -60,14 +60,13 @@ const EditBlogForm = ({ blog }: { blog: IBlog }) => {
           .map((tag) => tag.trim()),
         isFeatured: values.isFeatured.toLowerCase() === "yes" ? true : false,
       };
-      const res = await axiosBaseUrl.patch(`/blog/${blog?._id}`, editBlogData);
-      const data = await res.data;
-      if (data?.success) {
+      const result = await updateBlogAction(blog._id as string, editBlogData);
+      if (result?.success) {
         router.push("/dashboard/manage-blog");
         toast.success("Edit Blog Successfully.");
       }
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Edit blog failed failed");
+      toast.error(error?.message || "Edit blog failed failed");
     }
   }
   return (

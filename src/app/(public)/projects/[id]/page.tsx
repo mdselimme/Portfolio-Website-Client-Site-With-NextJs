@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { IProject } from "@/types/project";
+import { IProject } from "@/types/project.types";
 import { dateConvert } from "@/utils/convertDate";
 import { getProjects } from "@/utils/getProjects";
 import { SquareArrowOutUpRight } from "lucide-react";

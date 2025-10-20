@@ -19,7 +19,7 @@ import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 import { axiosBaseUrl } from "@/lib/axios";
 import { useRouter } from "next/navigation";
-import { IProject } from "@/types/project";
+import { IProject } from "@/types/project.types";
 import { validateTag } from "@/utils/validateTag";
 
 const addProjectSchema = z.object({

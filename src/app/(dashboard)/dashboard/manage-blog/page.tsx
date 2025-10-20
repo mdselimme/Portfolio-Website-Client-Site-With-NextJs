@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { IBlog } from "@/types/blog";
+import { IBlog } from "@/types/blog.type";
 import { getBlogs } from "@/utils/getBlogs";
 import { Metadata } from "next";
 import Link from "next/link";

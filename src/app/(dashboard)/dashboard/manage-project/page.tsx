@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { IProject } from "@/types/project";
+import { IProject } from "@/types/project.types";
 import { getProjects } from "@/utils/getProjects";
 import { Metadata } from "next";
 import Link from "next/link";

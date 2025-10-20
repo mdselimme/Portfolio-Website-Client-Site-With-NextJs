@@ -1,6 +1,6 @@
 "use server";
 import React from "react";
-import { IBlog } from "@/types/blog";
+import { IBlog } from "@/types/blog.type";
 import BlogCard from "../Blog/BlogCard";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";

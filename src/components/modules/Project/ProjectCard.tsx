@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { IProject } from "@/types/project";
+import { IProject } from "@/types/project.types";
 import { dateConvert } from "@/utils/convertDate";
 import Image from "next/image";
 import Link from "next/link";
