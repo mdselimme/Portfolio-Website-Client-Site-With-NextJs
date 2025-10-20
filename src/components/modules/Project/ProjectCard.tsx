@@ -28,7 +28,7 @@ const ProjectCard = ({ data }: { data: IProject }) => {
         </div>
         <CardHeader>
           <CardTitle>{data?.title}</CardTitle>
-          <CardDescription>{data?.description.slice(0, 60)}</CardDescription>
+          <CardDescription>{data?.description?.slice(0, 60)}</CardDescription>
         </CardHeader>
 
         <CardFooter>

@@ -53,7 +53,7 @@ const ManageBlog = async () => {
                       Edit
                     </Button>
                   </Link>
-                  <DeleteBlogButton blogId={blog?._id} />
+                  <DeleteBlogButton blogId={blog?._id as string} />
                 </TableCell>
               </TableRow>
             ))

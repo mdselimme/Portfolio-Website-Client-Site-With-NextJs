@@ -28,14 +28,14 @@ const BlogCard = ({ data }: { data: IBlog }) => {
         </div>
         <CardHeader>
           <CardTitle>{data?.title}</CardTitle>
-          <CardDescription>{data?.description.slice(0, 50)}</CardDescription>
+          <CardDescription>{data?.description?.slice(0, 50)}</CardDescription>
         </CardHeader>
 
         <CardFooter>
           <div className="flex gap-4 mb-3 items-center">
             <Avatar className="size-10">
               <AvatarImage
-                src={data?.author.photo}
+                src={data?.author?.photo}
                 alt={`${data?.author?.name} img`}
               />
               <AvatarFallback>PF</AvatarFallback>
@@ -46,7 +46,7 @@ const BlogCard = ({ data }: { data: IBlog }) => {
                 {data?.author?.name}
               </p>
               <p className="font-normal text-muted-foreground">
-                {dateConvert(data?.createdAt)}
+                {dateConvert(data?.createdAt as string)}
               </p>
             </div>
           </div>

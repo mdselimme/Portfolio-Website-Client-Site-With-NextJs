@@ -1,8 +1,14 @@
-export const getUserData = async (cookieHeader?: string) => {
+import { getAccessToken } from "./getAccessToken";
+
+export const getUserData = async () => {
     try {
+        const accessToken = await getAccessToken();
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/user/me`, {
-            headers: cookieHeader ? { Cookie: cookieHeader } : undefined,
-            credentials: cookieHeader ? undefined : "include",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `${accessToken}`,
+            },
+            credentials: "include",
             cache: "no-store",
         });
 

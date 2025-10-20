@@ -45,9 +45,9 @@ npm install
 
 Setup environment variables:
 
-- Create an .env.local file in your project root folder.
+- Create an .env file in your project root folder.
 
-- Add Your Server Site Base Url in .env.local file.
+- Add Your Server Site Base Url in .env file.
 
 ```bash
 NEXT_PUBLIC_SERVER_LINK=

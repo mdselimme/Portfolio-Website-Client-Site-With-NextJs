@@ -7,7 +7,7 @@ import {
   useState,
   ReactNode,
 } from "react";
-
+import Cookies from "js-cookie";
 interface AuthContextType {
   accessToken: string | null;
   setAccessToken: (token: string | null) => void;
@@ -26,6 +26,11 @@ export const AuthProver = ({ children }: { children: ReactNode }) => {
     try {
       const data = await api("/api/auth/refresh-token", {
         method: "POST",
+      });
+      Cookies.set("accessToken", data?.data?.accessToken, {
+        expires: 2,
+        secure: true,
+        sameSite: "None",
       });
       setAccessToken(data?.data?.accessToken);
     } catch (error) {

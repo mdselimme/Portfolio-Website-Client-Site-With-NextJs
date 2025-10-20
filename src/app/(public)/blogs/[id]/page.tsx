@@ -55,14 +55,15 @@ const BlogDetailsPage = async ({
               <div className="flex gap-4 mb-3 items-center">
                 <Avatar className="size-16">
                   <AvatarImage
-                    src={data?.author.photo}
+                    src={data?.author?.photo}
                     alt={`${data?.author?.name} img`}
                   />
                   <AvatarFallback>PF</AvatarFallback>
                 </Avatar>
                 <div>
                   <p className="font-semibold text-muted-foreground">
-                    {data?.author?.name} - {dateConvert(data?.createdAt)}
+                    {data?.author?.name} -{" "}
+                    {dateConvert(data?.createdAt as string)}
                   </p>
                   <p className="font-semibold text-muted-foreground flex gap-2 mt-2">
                     Views: {data?.views}
