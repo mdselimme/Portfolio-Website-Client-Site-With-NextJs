@@ -1,8 +1,6 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
-import { axiosBaseUrl } from "@/lib/axios";
-import { validateTag } from "@/utils/validateTag";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
@@ -16,20 +14,20 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { deleteProjectAction } from "@/action/projectAction";
 const ProjectDeleteButton = ({ projectId }: { projectId: string }) => {
   const router = useRouter();
 
   const deleteProject = async () => {
     try {
-      const res = await axiosBaseUrl.delete(`/project/${projectId}`);
-      const data = await res.data;
-      if (data?.success) {
-        validateTag("PROJECTS");
+      const result = await deleteProjectAction(projectId);
+
+      if (result?.success) {
         router.push("/projects");
         toast.success("Delete Project Successfully.");
       }
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Delete Project Failed.");
+      toast.error(error?.message || "Delete Project Failed.");
     }
   };
 

@@ -21,8 +21,7 @@ export async function createBlogAction(blogData: IBlog) {
 
     if (!res.ok) {
         const error = await res.json().catch(() => ({}));
-        return error
-        // throw new Error(error?.error || "Request failed.")
+        throw new Error(error?.error || "Request failed.")
     }
 
     const data = await res.json();

@@ -17,10 +17,9 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
-import { axiosBaseUrl } from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import { IProject } from "@/types/project.types";
-import { validateTag } from "@/utils/validateTag";
+import { createProjectAction } from "@/action/projectAction";
 
 const addProjectSchema = z.object({
   title: z.string({ error: "Title is required" }).min(10, {
@@ -100,15 +99,13 @@ const AddProjectForm = () => {
           addProjectData[field] = values[field];
         }
       });
-      const res = await axiosBaseUrl.post("/project", addProjectData);
-      const data = await res.data;
-      if (data?.success) {
-        validateTag("PROJECTS");
+      const result = await createProjectAction(addProjectData);
+      if (result?.success) {
         router.push("/projects");
         toast.success("Add Project Successfully.");
       }
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Add Project Failed.");
+      toast.error(error?.message || "Add Project Failed.");
     }
   }
   return (

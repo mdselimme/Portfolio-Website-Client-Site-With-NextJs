@@ -17,9 +17,9 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
-import { axiosBaseUrl } from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import { IProject } from "@/types/project.types";
+import { updateProjectAction } from "@/action/projectAction";
 
 const editProjectSchema = z.object({
   title: z.string({ error: "project title required." }).optional(),
@@ -56,7 +56,7 @@ const EditProjectFrom = ({ project }: { project: IProject }) => {
       title: project?.title,
       description: project?.description,
       thumbnail: project?.thumbnail,
-      technologyUsed: project?.technologyUsed.join(", "),
+      technologyUsed: project?.technologyUsed?.join(", ") ?? "",
       clientLiveLink: project?.clientLiveLink,
       serverLiveLink: project?.serverLiveLink,
       clientCodeLink: project?.clientCodeLink,
@@ -79,17 +79,16 @@ const EditProjectFrom = ({ project }: { project: IProject }) => {
         clientCodeLink: values?.clientCodeLink,
         serverCodeLink: values?.serverCodeLink,
       };
-      const res = await axiosBaseUrl.patch(
-        `/project/${project?._id}`,
+      const result = await updateProjectAction(
+        project?._id as string,
         editProjectData
       );
-      const data = await res.data;
-      if (data?.success) {
+      if (result?.success) {
         router.push("/dashboard/manage-project");
         toast.success("Update Project Successfully.");
       }
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Update Project Failed.");
+      toast.error(error?.message || "Update Project Failed.");
     }
   }
   return (

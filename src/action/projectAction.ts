@@ -1,6 +1,5 @@
 "use server";
 
-import { IBlog } from "@/types/blog.type";
 import { IProject } from "@/types/project.types";
 import { getAccessToken } from "@/utils/getAccessToken";
 import { revalidateTag } from "next/cache";
@@ -37,7 +36,7 @@ export async function createProjectAction(projectData: IProject) {
 };
 
 // UPDATE PROJECT FUNCTION 
-export async function updateBlogAction(projectId: string, projectData: IBlog) {
+export async function updateProjectAction(projectId: string, projectData: IProject) {
     const accessToken = await getAccessToken();
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_LINK}/project/${projectId}`, {
@@ -69,7 +68,7 @@ export async function updateBlogAction(projectId: string, projectData: IBlog) {
 
 
 // DELETE PROJECT FUNCTION 
-export async function deleteBlogAction(projectId: string) {
+export async function deleteProjectAction(projectId: string) {
 
     const accessToken = await getAccessToken();
 
