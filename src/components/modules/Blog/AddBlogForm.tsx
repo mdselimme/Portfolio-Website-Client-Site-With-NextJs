@@ -66,7 +66,6 @@ const AddBlogForm = () => {
         toast.success("Add Blog Successfully.");
       }
     } catch (error: any) {
-      console.log(error);
       toast.error(error?.message || "Add Blog failed");
     }
   }

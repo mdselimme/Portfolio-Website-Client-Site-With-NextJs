@@ -1,4 +1,5 @@
 
+
 export interface IUser {
     _id: string
     name: string
@@ -10,4 +11,9 @@ export interface IUser {
     createdAt: string
     updatedAt: string
     photo?: string
+}
+
+export interface IUpdatePassword {
+    oldPassword: string,
+    newPassword: string,
 }

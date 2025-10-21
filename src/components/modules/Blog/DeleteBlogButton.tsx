@@ -23,7 +23,7 @@ const DeleteBlogButton = ({ blogId }: { blogId: string }) => {
     try {
       const result = await deleteBlogAction(blogId);
       if (result?.success) {
-        router.push("/");
+        router.push("/blogs");
         toast.success("blog deleted successfully.");
       }
     } catch (error: any) {

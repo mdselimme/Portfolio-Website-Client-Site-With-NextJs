@@ -16,8 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import { axiosBaseUrl } from "@/lib/axios";
 import { useRouter } from "next/navigation";
+import { updatePasswordAction } from "@/action/profileAction";
 
 const updatePasswordSchema = z.object({
   oldPassword: z.string({ error: "old password required and string type." }),
@@ -42,14 +42,13 @@ const UpdatePasswordForm = () => {
         oldPassword: values.oldPassword,
         newPassword: values.newPassword,
       };
-      const res = await axiosBaseUrl.patch("/auth/reset-password", updateData);
-      const data = await res.data;
-      if (data?.success) {
+      const result = await updatePasswordAction(updateData);
+      if (result?.success) {
         router.push("/dashboard");
         toast.success("Update Password Successfully.");
       }
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Update Password failed.");
+      toast.error(error?.message || "Update Password failed.");
     }
   }
   return (

@@ -84,7 +84,7 @@ const EditProjectFrom = ({ project }: { project: IProject }) => {
         editProjectData
       );
       if (result?.success) {
-        router.push("/dashboard/manage-project");
+        router.push("/projects");
         toast.success("Update Project Successfully.");
       }
     } catch (error: any) {

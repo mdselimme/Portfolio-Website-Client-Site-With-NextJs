@@ -16,9 +16,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import { axiosBaseUrl } from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import { IUser } from "@/types/user.type";
+import { updateProfileAction } from "@/action/profileAction";
 
 const updateUserZodSchema = z.object({
   photo: z.url({ error: "url is not valid." }),
@@ -49,16 +49,13 @@ const EditProfileForm = ({ user }: { user: IUser }) => {
         phone: values.phone,
         photo: values.photo,
       };
-      const res = await axiosBaseUrl.patch("/user", updateData, {
-        withCredentials: true,
-      });
-      const data = await res.data;
-      if (data?.success) {
+      const result = await updateProfileAction(updateData);
+      if (result?.success) {
         router.push("/dashboard");
         toast.success("Update User Successfully.");
       }
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Update Profile Failed");
+      toast.error(error?.message || "Update Profile Failed");
     }
   }
   return (

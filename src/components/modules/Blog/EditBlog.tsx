@@ -62,7 +62,7 @@ const EditBlogForm = ({ blog }: { blog: IBlog }) => {
       };
       const result = await updateBlogAction(blog._id as string, editBlogData);
       if (result?.success) {
-        router.push("/dashboard/manage-blog");
+        router.push("/blogs");
         toast.success("Edit Blog Successfully.");
       }
     } catch (error: any) {

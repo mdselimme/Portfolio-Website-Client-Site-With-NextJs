@@ -9,7 +9,9 @@ export const getUserData = async () => {
                 Authorization: `${accessToken}`,
             },
             credentials: "include",
-            cache: "no-store",
+            next: {
+                tags: ["PROFILE"]
+            },
         });
 
         if (!res.ok) return undefined;
