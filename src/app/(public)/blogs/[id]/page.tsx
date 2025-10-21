@@ -49,7 +49,7 @@ const BlogDetailsPage = async ({
       {data === undefined ? (
         <h1 className="text-center font-bold text-2xl">No Data Found</h1>
       ) : (
-        <div className="w-2/3 mx-auto">
+        <div className="w-full md:w-2/3 mx-auto">
           <Card>
             <CardHeader>
               <div className="flex gap-4 mb-3 items-center">
@@ -76,6 +76,7 @@ const BlogDetailsPage = async ({
                   fill={true}
                   alt={`${data?.title} image`}
                   quality={75}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>
               <CardTitle className="text-3xl font-bold mb-2">
@@ -89,7 +90,7 @@ const BlogDetailsPage = async ({
             <CardFooter>
               <div className="flex gap-2 mb-3 items-center">
                 <p className="text-lg font-semibold">Tags: </p>
-                <ul className="flex gap-3">
+                <ul className="flex gap-3 flex-wrap">
                   {data?.tags?.map((tag: string) => (
                     <li
                       className="capitalize text-sm bg-accent-foreground text-white py-2 px-4 rounded-full"

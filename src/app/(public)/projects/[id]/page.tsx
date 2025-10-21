@@ -52,8 +52,8 @@ const ProjectDetailsPage = async ({
   const { data }: { data: IProject } = await res.json();
 
   return (
-    <div className="container mx-auto py-32">
-      <div className="w-2/3 mx-auto">
+    <div className="container mx-auto px-5 py-32">
+      <div className="w-full md:w-2/3 mx-auto">
         <Card>
           <CardHeader>
             <div className="flex gap-4 mb-3 items-center">
@@ -79,6 +79,7 @@ const ProjectDetailsPage = async ({
                 fill={true}
                 alt={`${data?.title} image`}
                 quality={75}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </div>
             <CardTitle className="text-3xl font-bold mb-2">
@@ -92,7 +93,7 @@ const ProjectDetailsPage = async ({
           <CardFooter className="flex-col justify-start">
             <div className="flex gap-2 mb-3 items-center">
               <p className="text-lg font-semibold">Used Technology: </p>
-              <ul className="flex gap-3">
+              <ul className="flex gap-3 flex-wrap">
                 {data?.technologyUsed?.map((tag: string) => (
                   <li
                     className="capitalize text-sm  bg-amber-200 text-chart-3 py-2 px-4 rounded-full"
@@ -103,7 +104,7 @@ const ProjectDetailsPage = async ({
                 ))}
               </ul>
             </div>
-            <div className="mt-5 flex items-center">
+            <div className="mt-5 flex flex-wrap items-center gap-4">
               {data?.clientLiveLink ? (
                 <Link
                   className="mr-2 flex items-center cursor-pointer"
